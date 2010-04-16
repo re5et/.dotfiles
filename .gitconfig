@@ -1,0 +1,7 @@
+[core]
+	excludesfile = ~/.gitignore
+	fileMode = false
+	editor = vim
+[user]
+	name = re5et
+	email = re5etsmyth@gmail.com
