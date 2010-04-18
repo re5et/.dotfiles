@@ -180,6 +180,10 @@ globalkeys = awful.util.table.join(
         end),
     awful.key({ modkey,           }, "w", function () mymainmenu:show(true)        end),
 
+    -- Volume
+    awful.key({ "Control" }, "Up", function () awful.util.spawn("amixer -c 0 set PCM 4dB+") end),
+    awful.key({ "Control" }, "Down", function () awful.util.spawn("amixer -c 0 set PCM 4dB-") end),
+
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end),
