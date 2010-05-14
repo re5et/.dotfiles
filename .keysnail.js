@@ -528,6 +528,11 @@ plugins.options["twitter_client.keymap"] = {
     "o"     : "open-url"
 };
 
+key.setViewKey(["C-x", "b"],
+    function (ev, arg) {
+        ext.exec("tanything", arg);
+    }, "Tanyting buffer switching", true);
+
 key.setViewKey("t",
     function (ev, arg) {
         ext.exec("twitter-client-display-timeline", arg);
@@ -543,6 +548,34 @@ key.setGlobalKey(["C-c", "T"],
         ext.exec("twitter-client-tweet-this-page", arg);
     }, "Tweet with the title and URL of this page", true);
 
+hook.setHook('KeyBoardQuit', function (ev) {
+    util.rangeInterrupted = true;
+    if (key.currentKeySequence.length)
+        return;
+    command.closeFindBar();
 
+    var marked = command.marked(ev);
 
+    if (util.isCaretEnabled())
+    {
+        if (marked)
+            command.resetMark(ev);
+        else
+        {
+            if ("blur" in ev.target)
+                ev.target.blur();
+            gBrowser.focus();
+            _content.focus();
+        }
+    }
+    else
+    {
+        goDoCommand("cmd_selectNone");
+    }
 
+    if (KeySnail.windowType === "navigator:browser" && !marked)
+    {
+        key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_ESCAPE, true);
+        prompt.finish(true);
+    }
+});
