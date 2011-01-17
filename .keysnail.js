@@ -19,7 +19,7 @@ key.universalArgumentKey = "C-u";
 key.negativeArgument1Key = "C--";
 key.negativeArgument2Key = "C-M--";
 key.negativeArgument3Key = "M--";
-key.suspendKey           = "<f2>";
+key.suspendKey           = "C-M-<f2>";
 
 // ================================= Hooks ================================= //
 
