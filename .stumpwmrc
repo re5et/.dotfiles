@@ -1,3 +1,5 @@
+; -*-Lisp-*-
+
 (in-package :stumpwm)
 
 ;; shell program used by `run-shell-command' (`sh' by default, which is *not*
@@ -20,17 +22,17 @@
  *input-window-gravity* :top-left
  *mouse-focus-policy* :ignore
  *message-window-gravity* :top-left
- *mode-line-timeout* 10
+ *mode-line-timeout* 1
  *mode-line-pad-y* 0
  *mode-line-background-color* "black"
- *mode-line-foreground-color* "dark slate gray"
- *mode-line-border-color* "black"
+ *mode-line-foreground-color* "gray20"
+ *mode-line-border-color* "gray20"
  *screen-mode-line-format* (list
 			    '(:eval (run-shell-command "~/bin/modeline" t))
 			    " %W"
 			    ))
 
-(set-focus-color "red")
+(set-focus-color "blue")
 
 ;; emacs style splitting
 (define-key *root-map* (kbd "0") "remove")
@@ -51,6 +53,9 @@
 (define-key *top-map* (kbd "C-'") "prev")
 (define-key *top-map* (kbd "C-M-;") "colon")
 
+(define-key *top-map* (kbd "C-M-Left") "move-window left")
+(define-key *top-map* (kbd "C-M-Right") "move-window right")
+
 ;; volume control
 (define-key *top-map* (kbd "C-Up") "exec amixer -c 0 set Master 4dB+")
 (define-key *top-map* (kbd "C-Down") "exec amixer -c 0 set Master 4dB-")
@@ -68,6 +73,11 @@
 (define-key *top-map* (kbd "C-3") "gselect terms")
 (define-key *top-map* (kbd "C-4") "gselect misc")
 (define-key *top-map* (kbd "C-5") "gselect virtuals")
+
+(defcommand firefox () ()
+  "Start Firefox or switch to it, if it is already running."
+  (run-or-raise "firefox" '(:class "Firefox")))
+(define-key *root-map* (kbd "f") "firefox")
 
 ;; (run-shell-command "firefox")
 ;; (run-shell-command "virtualbox")
