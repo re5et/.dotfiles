@@ -16,10 +16,17 @@ export ZSH_THEME="re5et"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git rails ruby)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
-# steal from darkblood / dstufft / dst / jreese
+EDITOR="emacs -nw --no-init"
+BROWSER=/usr/bin/firefox
+PATH=$PATH:~/bin
+
+# for rvm
+unsetopt auto_name_dirs
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
