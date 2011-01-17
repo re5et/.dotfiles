@@ -336,10 +336,10 @@ key.setEditKey('C-h', function () {
 }, 'Delete backward char');
 
 key.setEditKey('M-d', function () {
-    command.deleteForwardWord(ev);
+    goDoCommand("cmd_deleteWordForward")
 }, 'Delete forward word');
 
-key.setEditKey([['C-<backspace>'], ['M-<delete>']], function (ev) {
+key.setEditKey([['C-<backspace>'], ['M-<backspace>']], function (ev) {
     command.deleteBackwardWord(ev);
 }, 'Delete backward word');
 
