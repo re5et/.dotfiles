@@ -16,6 +16,12 @@
 					; 1 screen and many heads. When not using xinerama each screen is a
 					; physical monitor so you have many screens with only one head on them.
 
+(load "/home/atom/stumpwm/contrib/mem.lisp")
+(load "/home/atom/stumpwm/contrib/net.lisp")
+(load "/home/atom/stumpwm/contrib/battery.lisp")
+(load "/home/atom/stumpwm/contrib/disk.lisp")
+(load "/home/atom/stumpwm/contrib/cpu.lisp")
+
 
 ;; modeline background color
 (setf
@@ -29,7 +35,7 @@
  *mode-line-border-color* "gray20"
  *screen-mode-line-format* (list
 			    '(:eval (run-shell-command "~/bin/modeline" t))
-			    " %W"
+			    " ^B^5*%D^n ^B^3*%c^n ^B^6*%M%N^n ^B^3*%l^n %W"
 			    ))
 
 (set-focus-color "blue")
