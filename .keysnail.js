@@ -5,6 +5,48 @@
 // ========================================================================= //
 //{{%PRESERVE%
 // Put your codes here
+
+plugins.options["twitter_client.keymap"] = {
+    "C-z"   : "prompt-toggle-edit-mode",
+    "SPC"   : "prompt-next-page",
+    "b"     : "prompt-previous-page",
+    "j"     : "prompt-next-completion",
+    "k"     : "prompt-previous-completion",
+    "g"     : "prompt-beginning-of-candidates",
+    "G"     : "prompt-end-of-candidates",
+    "q"     : "prompt-cancel",
+    // twitter client specific actions
+    "t"     : "tweet",
+    "r"     : "reply",
+    "R"     : "official-retweet",
+    "f"     : "add-to-favorite",
+    "v"     : "display-entire-message",
+    "V"     : "view-in-twitter",
+    "c"     : "copy-tweet",
+    "s"     : "show-target-status",
+    "@"     : "show-mentions",
+    "/"     : "search-word",
+    "o"     : "open-url"
+};
+
+plugins.options["hok.hint_base_style"] = {
+    position        : 'absolute',
+    zIndex          : '2147483647',
+    color           : '#000',
+    fontSize        : '12px',
+    fontFamily      : 'sans',
+    fontWeight      : 'bold',
+    lineHeight      : '12px',
+    padding         : '3px',
+    margin          : '0px',
+    textTransform   : 'uppercase'
+};
+
+plugins.options["hok.hint_color_link"]    = 'rgba(0, 255, 0, 1)';
+plugins.options["hok.hint_color_form"]    = 'rgba(157, 82, 255, 1)';
+plugins.options["hok.hint_color_focused"] = 'rgba(255, 0, 255, 1)';
+plugins.options["hok.hint_color_candidates"] = 'rgba(255, 100, 255, 1)';
+
 //}}%PRESERVE%
 // ========================================================================= //
 
@@ -484,49 +526,16 @@ key.setCaretKey('M-n', function () {
     command.walkInputElement(command.elementsRetrieverButton, false, true);
 }, 'Focus to the previous button');
 
-// hok customization
-
-plugins.options["hok.hint_base_style"] = {
-    position        : 'absolute',
-    zIndex          : '2147483647',
-    color           : '#000',
-    fontSize        : '12px',
-    fontFamily      : 'sans',
-    fontWeight      : 'bold',
-    lineHeight      : '12px',
-    padding         : '3px',
-    margin          : '0px',
-    textTransform   : 'uppercase'
-};
-
-plugins.options["hok.hint_color_link"]    = 'rgba(0, 255, 0, 1)';
-plugins.options["hok.hint_color_form"]    = 'rgba(157, 82, 255, 1)';
-plugins.options["hok.hint_color_focused"] = 'rgba(255, 0, 255, 1)';
-plugins.options["hok.hint_color_candidates"] = 'rgba(255, 100, 255, 1)';
-
-// twitter mode stuff
-
-plugins.options["twitter_client.keymap"] = {
-    // "C-z"   : "prompt-toggle-edit-mode",
-    // "SPC"   : "prompt-next-page",
-    // "b"     : "prompt-previous-page",
-    // "j"     : "prompt-next-completion",
-    // "k"     : "prompt-previous-completion",
-    // "g"     : "prompt-beginning-of-candidates",
-    // "G"     : "prompt-end-of-candidates",
-    // "q"     : "prompt-cancel",
-    // twitter client specific actions
-    // "s"     : "show-target-status",
-    // "@"     : "show-mentions",
-    // "/"     : "search-word",
-    "C-r"     : "reply",
-    "C-R"     : "retweet",
-    "C-o"     : "open-url"
-};
+// CUSTOM STUFF IS HERE:
 
 key.setGlobalKey(["C-c", "t"],
     function (ev, arg) {
         ext.exec("twitter-client-display-timeline", arg);
+    }, "Display your timeline", true);
+
+key.setGlobalKey(["C-c", "@"],
+    function (ev, arg) {
+        ext.exec("twitter-client-show-mentions", arg);
     }, "Display your timeline", true);
 
 key.setGlobalKey(["C-c", "T"],
@@ -591,8 +600,10 @@ ext.add("list-closed-tabs", function () {
 }, "List closed tabs");
 
 // allows enter to focus
+if(gFindBar != undefined){
 gFindBar.getElement("findbar-textbox")
     .addEventListener("keypress", emacslike_search, false);
+}
 
 function emacslike_search(ev){
     if(ev.ctrlKey && ev.charCode == 115){ // C-s
