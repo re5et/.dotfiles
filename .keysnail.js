@@ -157,10 +157,6 @@ key.setGlobalKey('C-d', function (ev, arg) {
     ext.exec("hok-start-foreground-mode", arg, ev);
 }, 'Start Hit a Hint foreground mode', true);
 
-key.setGlobalKey('C-M-t', function (ev, arg) {
-    ext.exec("twitter-client-display-timeline", arg, ev);
-}, 'Display your timeline', true);
-
 key.setGlobalKey('C-M-g', function (ev, arg) {
     window.location = 'http://gmail.com'
 }, 'Jump to Gmail', true);
@@ -511,42 +507,37 @@ plugins.options["hok.hint_color_candidates"] = 'rgba(255, 100, 255, 1)';
 // twitter mode stuff
 
 plugins.options["twitter_client.keymap"] = {
-    "C-z"   : "prompt-toggle-edit-mode",
-    "SPC"   : "prompt-next-page",
-    "b"     : "prompt-previous-page",
-    "j"     : "prompt-next-completion",
-    "k"     : "prompt-previous-completion",
-    "g"     : "prompt-beginning-of-candidates",
-    "G"     : "prompt-end-of-candidates",
-    "q"     : "prompt-cancel",
+    // "C-z"   : "prompt-toggle-edit-mode",
+    // "SPC"   : "prompt-next-page",
+    // "b"     : "prompt-previous-page",
+    // "j"     : "prompt-next-completion",
+    // "k"     : "prompt-previous-completion",
+    // "g"     : "prompt-beginning-of-candidates",
+    // "G"     : "prompt-end-of-candidates",
+    // "q"     : "prompt-cancel",
     // twitter client specific actions
-    "r"     : "reply",
-    "R"     : "retweet",
-    "s"     : "show-target-status",
-    "@"     : "show-mentions",
-    "/"     : "search-word",
-    "o"     : "open-url"
+    // "s"     : "show-target-status",
+    // "@"     : "show-mentions",
+    // "/"     : "search-word",
+    "C-r"     : "reply",
+    "C-R"     : "retweet",
+    "C-o"     : "open-url"
 };
-
-key.setViewKey(["C-x", "b"],
-    function (ev, arg) {
-        ext.exec("tanything", arg);
-    }, "Tanyting buffer switching", true);
-
-key.setViewKey("t",
-    function (ev, arg) {
-        ext.exec("twitter-client-display-timeline", arg);
-    }, "Display your timeline", true);
 
 key.setGlobalKey(["C-c", "t"],
     function (ev, arg) {
-        ext.exec("twitter-client-tweet", arg);
-    }, "Tweet", true);
+        ext.exec("twitter-client-display-timeline", arg);
+    }, "Display your timeline", true);
 
 key.setGlobalKey(["C-c", "T"],
     function (ev, arg) {
         ext.exec("twitter-client-tweet-this-page", arg);
     }, "Tweet with the title and URL of this page", true);
+
+key.setViewKey(["C-x", "b"],
+    function (ev, arg) {
+        ext.exec("tanything", arg);
+    }, "Tanyting buffer switching", true);
 
 hook.setHook('KeyBoardQuit', function (ev) {
     util.rangeInterrupted = true;
@@ -579,3 +570,64 @@ hook.setHook('KeyBoardQuit', function (ev) {
         prompt.finish(true);
     }
 });
+
+// manage closed tabs
+ext.add("list-closed-tabs", function () {
+    const fav = "chrome://mozapps/skin/places/defaultFavicon.png";
+    var ss   = Cc["@mozilla.org/browser/sessionstore;1"].getService(Ci.nsISessionStore);
+    var json = Cc["@mozilla.org/dom/json;1"].createInstance(Ci.nsIJSON);
+    var closedTabs = [[tab.image || fav, tab.title] for each (tab in json.decode(ss.getClosedTabData(window)))];
+
+    if (!closedTabs.length)
+        return void display.echoStatusBar("there are no closed tabs.", 2000);
+
+    prompt.selector(
+        {
+            message    : "select tab to undo:",
+            collection : closedTabs,
+            flags      : [ICON | IGNORE, 0],
+            callback   : function (i) { if (i >= 0) window.undoCloseTab(i); }
+        });
+}, "List closed tabs");
+
+// allows enter to focus
+gFindBar.getElement("findbar-textbox")
+    .addEventListener("keypress", emacslike_search, false);
+
+function emacslike_search(ev){
+    if(ev.ctrlKey && ev.charCode == 115){ // C-s
+        gFindBar.onFindAgainCommand(false);
+    }
+    if(ev.keyCode == 13){ // Enter
+        gFindBar.onFindAgainCommand(true);
+        gFindBar.close();
+    }
+//TODO: save searching start point and back to it when searching is finished with C-g
+}
+
+// increment / decrement url number
+key.setViewKey('>', function (ev, arg) {
+    let pattern = /(.*?)([0]*)([0-9]+)([^0-9]*)$/;
+    let url = content.location.href;
+    let digit = url.match(pattern);
+
+    if (digit[1] && digit[3])
+    {
+        let len = digit[3].length;
+        let next = +digit[3] + (arg ? arg : 1);
+        content.location.href = digit[1] + (digit[2] ||"").slice(next.toString().length - len) + next + (digit[4] ||"");
+    }
+}, 'Increment last digit in the URL');
+
+key.setViewKey('<', function (ev, arg) {
+    let pattern = /(.*?)([0]*)([0-9]+)([^0-9]*)$/;
+    let url = content.location.href;
+    let digit = url.match(pattern);
+
+    if (digit[1] && digit[3])
+    {
+        let len = digit[3].length;
+        let next = +digit[3] - (arg ? arg : 1);
+        content.location.href = digit[1] + (digit[2] ||"").slice(next.toString().length - len) + next + (digit[4] ||"");
+    }
+}, 'Decrement last digit in the URL');
