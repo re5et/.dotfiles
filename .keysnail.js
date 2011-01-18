@@ -16,7 +16,6 @@ plugins.options["twitter_client.keymap"] = {
     "G"     : "prompt-end-of-candidates",
     "q"     : "prompt-cancel",
     // twitter client specific actions
-    "t"     : "tweet",
     "r"     : "reply",
     "R"     : "official-retweet",
     "f"     : "add-to-favorite",
@@ -528,22 +527,22 @@ key.setCaretKey('M-n', function () {
 
 // CUSTOM STUFF IS HERE:
 
-key.setGlobalKey(["C-c", "t"],
+key.setGlobalKey(["C-c", "C-t"],
     function (ev, arg) {
         ext.exec("twitter-client-display-timeline", arg);
     }, "Display your timeline", true);
 
-key.setGlobalKey(["C-c", "@"],
+key.setGlobalKey(["C-c", "C-@"],
     function (ev, arg) {
         ext.exec("twitter-client-show-mentions", arg);
     }, "Display your timeline", true);
 
-key.setGlobalKey(["C-c", "T"],
+key.setGlobalKey(["C-c", "C-T"],
     function (ev, arg) {
         ext.exec("twitter-client-tweet-this-page", arg);
     }, "Tweet with the title and URL of this page", true);
 
-key.setViewKey(["C-x", "b"],
+key.setGlobalKey(["C-x", "b"],
     function (ev, arg) {
         ext.exec("tanything", arg);
     }, "Tanyting buffer switching", true);
@@ -598,23 +597,6 @@ ext.add("list-closed-tabs", function () {
             callback   : function (i) { if (i >= 0) window.undoCloseTab(i); }
         });
 }, "List closed tabs");
-
-// allows enter to focus
-if(gFindBar != undefined){
-gFindBar.getElement("findbar-textbox")
-    .addEventListener("keypress", emacslike_search, false);
-}
-
-function emacslike_search(ev){
-    if(ev.ctrlKey && ev.charCode == 115){ // C-s
-        gFindBar.onFindAgainCommand(false);
-    }
-    if(ev.keyCode == 13){ // Enter
-        gFindBar.onFindAgainCommand(true);
-        gFindBar.close();
-    }
-//TODO: save searching start point and back to it when searching is finished with C-g
-}
 
 // increment / decrement url number
 key.setViewKey('>', function (ev, arg) {
