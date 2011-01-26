@@ -16,11 +16,11 @@
 					; 1 screen and many heads. When not using xinerama each screen is a
 					; physical monitor so you have many screens with only one head on them.
 
-(load "/home/atom/stumpwm/contrib/mem.lisp")
-(load "/home/atom/stumpwm/contrib/net.lisp")
-(load "/home/atom/stumpwm/contrib/battery.lisp")
-(load "/home/atom/stumpwm/contrib/disk.lisp")
-(load "/home/atom/stumpwm/contrib/cpu.lisp")
+;; (load "/home/atom/stumpwm/contrib/mem.lisp")
+;; (load "/home/atom/stumpwm/contrib/net.lisp")
+;; (load "/home/atom/stumpwm/contrib/battery.lisp")
+;; (load "/home/atom/stumpwm/contrib/disk.lisp")
+;; (load "/home/atom/stumpwm/contrib/cpu.lisp")
 
 
 ;; modeline background color
@@ -46,7 +46,7 @@
 (define-key *root-map* (kbd "2") "vsplit")
 (define-key *root-map* (kbd "3") "hsplit")
 
-;; new gnome-terminal
+;; new sakura terminal
 (define-key *root-map* (kbd "t") "exec sakura")
 
 ;; top level commands
@@ -65,6 +65,18 @@
 ;; volume control
 (define-key *top-map* (kbd "C-Up") "exec amixer -c 0 set Master 4dB+")
 (define-key *top-map* (kbd "C-Down") "exec amixer -c 0 set Master 4dB-")
+
+;; mpc stuff
+(define-key *root-map* (kbd "C-p") "exec mpc toggle")
+(defvar *mpc-bindings*
+  (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "p") "exec mpc toggle")
+    (define-key m (kbd "s") "exec mpc stop")
+    (define-key m (kbd "f") "exec mpc next")
+    (define-key m (kbd "b") "exec mpc prev")
+    m ; NOTE: this is important
+    ))
+(define-key *root-map* (kbd "m") '*mpc-bindings*)
 
 ;; make my default groups
 (run-commands "gnew firefox"
@@ -100,3 +112,9 @@
   (gselect (window-group target))
   (really-raise-window target))
 (add-hook *urgent-window-hook* 'raise-urgent-window-hook)
+
+(defvar *mpc-bindings*
+  (let ((m (stumpwm:make-sparse-keymap)))
+    (stumpwm:define-key m (stumpwm:kbd "p") "exec mpc toggle")
+    m ; NOTE: this is important
+    ))
