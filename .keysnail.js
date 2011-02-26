@@ -46,6 +46,118 @@ plugins.options["hok.hint_color_form"]    = 'rgba(157, 82, 255, 1)';
 plugins.options["hok.hint_color_focused"] = 'rgba(255, 0, 255, 1)';
 plugins.options["hok.hint_color_candidates"] = 'rgba(255, 100, 255, 1)';
 
+key.setGlobalKey('C-,', function (ev, arg) {
+    ext.exec("hok-start-foreground-mode", arg, ev);
+}, 'Start Hit a Hint foreground mode', true);
+
+key.setGlobalKey('M-,', function (ev, arg) {
+    ext.exec("hok-start-continuous-mode", arg, ev);
+}, 'Start Hit a Hint foreground mode', true);
+
+
+key.setGlobalKey(['C-c', 'C-,'], function (ev, arg) {
+    ext.exec("hok-start-extended-mode", arg, ev);
+}, 'HOK extended awesome!', true);
+
+key.setGlobalKey(["C-c", "C-t"],
+    function (ev, arg) {
+        ext.exec("twitter-client-display-timeline", arg);
+    }, "Display your timeline", true);
+
+key.setGlobalKey(["C-c", "C-@"],
+    function (ev, arg) {
+        ext.exec("twitter-client-show-mentions", arg);
+    }, "Display your timeline", true);
+
+key.setGlobalKey(["C-c", "C-T"],
+    function (ev, arg) {
+        ext.exec("twitter-client-tweet-this-page", arg);
+    }, "Tweet with the title and URL of this page", true);
+
+key.setGlobalKey(["C-x", "b"],
+    function (ev, arg) {
+        ext.exec("tanything", arg);
+    }, "Tanyting buffer switching", true);
+
+hook.setHook('KeyBoardQuit', function (ev) {
+    util.rangeInterrupted = true;
+    if (key.currentKeySequence.length)
+        return;
+    command.closeFindBar();
+
+    var marked = command.marked(ev);
+
+    if (util.isCaretEnabled())
+    {
+        if (marked)
+            command.resetMark(ev);
+        else
+        {
+            if ("blur" in ev.target)
+                ev.target.blur();
+            gBrowser.focus();
+            _content.focus();
+        }
+    }
+    else
+    {
+        goDoCommand("cmd_selectNone");
+    }
+
+    if (KeySnail.windowType === "navigator:browser" && !marked)
+    {
+        key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_ESCAPE, true);
+        prompt.finish(true);
+    }
+});
+
+// manage closed tabs
+ext.add("list-closed-tabs", function () {
+    const fav = "chrome://mozapps/skin/places/defaultFavicon.png";
+    var ss = Cc["@mozilla.org/browser/sessionstore;1"].getService(Ci.nsISessionStore);
+    var json = Cc["@mozilla.org/dom/json;1"].createInstance(Ci.nsIJSON);
+    var closedTabs = [[tab.image || fav, tab.title] for each (tab in json.decode(ss.getClosedTabData(window)))];
+
+    if (!closedTabs.length)
+        return void display.echoStatusBar("there are no closed tabs.", 2000);
+
+    prompt.selector(
+        {
+            message : "select tab to undo:",
+            collection : closedTabs,
+            flags : [ICON | IGNORE, 0],
+            callback : function (i) { if (i >= 0) window.undoCloseTab(i); }
+        });
+}, "List closed tabs");
+
+// increment / decrement url number
+key.setViewKey('>', function (ev, arg) {
+    let pattern = /(.*?)([0]*)([0-9]+)([^0-9]*)$/;
+    let url = content.location.href;
+    let digit = url.match(pattern);
+
+    if (digit[1] && digit[3])
+    {
+        let len = digit[3].length;
+        let next = +digit[3] + (arg ? arg : 1);
+        content.location.href = digit[1] + (digit[2] ||"").slice(next.toString().length - len) + next + (digit[4] ||"");
+    }
+}, 'Increment last digit in the URL');
+
+key.setViewKey('<', function (ev, arg) {
+    let pattern = /(.*?)([0]*)([0-9]+)([^0-9]*)$/;
+    let url = content.location.href;
+    let digit = url.match(pattern);
+
+    if (digit[1] && digit[3])
+    {
+        let len = digit[3].length;
+        let next = +digit[3] - (arg ? arg : 1);
+        content.location.href = digit[1] + (digit[2] ||"").slice(next.toString().length - len) + next + (digit[4] ||"");
+    }
+}, 'Decrement last digit in the URL');
+
+
 //}}%PRESERVE%
 // ========================================================================= //
 
@@ -64,29 +176,6 @@ key.suspendKey           = "C-M-<f2>";
 
 // ================================= Hooks ================================= //
 
-hook.setHook('KeyBoardQuit', function (aEvent) {
-    if (key.currentKeySequence.length) {
-        return;
-    }
-    command.closeFindBar();
-    var marked = command.marked(aEvent);
-    if (util.isCaretEnabled()) {
-        if (marked) {
-            command.resetMark(aEvent);
-        } else {
-            if ("blur" in aEvent.target) {
-                aEvent.target.blur();
-            }
-            gBrowser.focus();
-            _content.focus();
-        }
-    } else {
-        goDoCommand("cmd_selectNone");
-    }
-    if (KeySnail.windowType === "navigator:browser" && !marked) {
-        key.generateKey(aEvent.originalTarget, KeyEvent.DOM_VK_ESCAPE, true);
-    }
-});
 
 // ============================= Key bindings ============================== //
 
@@ -134,9 +223,13 @@ key.setGlobalKey(['C-x', 'k'], function (ev) {
     BrowserCloseTabOrWindow();
 }, 'Close tab / window');
 
-key.setGlobalKey(['C-x', 'K'], function () {
-    closeWindow(true);
-}, 'Close the window');
+key.setGlobalKey('C-W', function (ev) {
+    BrowserCloseTabOrWindow();
+}, 'Close tab / window');
+
+// key.setGlobalKey(['C-x', 'K'], function () {
+//     closeWindow(true);
+// }, 'Close the window');
 
 key.setGlobalKey(['C-x', 'n'], function (ev) {
     OpenBrowserWindow();
@@ -194,9 +287,6 @@ key.setGlobalKey('C-M-h', function () {
     getBrowser().mTabContainer.advanceSelectedTab(-1, true);
 }, 'Select previous tab');
 
-key.setGlobalKey('C-d', function (ev, arg) {
-    ext.exec("hok-start-foreground-mode", arg, ev);
-}, 'Start Hit a Hint foreground mode', true);
 
 key.setGlobalKey('C-M-g', function (ev, arg) {
     window.location = 'http://gmail.com'
@@ -250,11 +340,11 @@ key.setViewKey('R', function () {
     BrowserReload();
 }, 'Reload the page', true);
 
-key.setViewKey('B', function () {
+key.setGlobalKey('C-B', function () {
     BrowserBack();
 }, 'Back');
 
-key.setViewKey('F', function () {
+key.setGlobalKey('C-F', function () {
     BrowserForward();
 }, 'Forward');
 
@@ -401,226 +491,126 @@ key.setEditKey('C-y', command.yank, 'Paste (Yank)');
 key.setEditKey('M-y', command.yankPop, 'Paste pop (Yank pop)', true);
 
 key.setEditKey('C-M-y', function (ev) {
-    if (!command.kill.ring.length) {
-        return;
-    }
-    let (ct = command.getClipboardText()) (!command.kill.ring.length || ct != command.kill.ring[0]) &&
-        command.pushKillRing(ct);
-    prompt.selector({message: "Paste:", collection: command.kill.ring, callback: function (i) {if (i >= 0) {key.insertText(command.kill.ring[i]);}}});
+		if (!command.kill.ring.length) {
+				return;
+		}
+		let (ct = command.getClipboardText()) (!command.kill.ring.length || ct != command.kill.ring[0]) &&
+				command.pushKillRing(ct);
+		prompt.selector({message: "Paste:", collection: command.kill.ring, callback: function (i) {if (i >= 0) {key.insertText(command.kill.ring[i]);}}});
 }, 'Show kill-ring and select text to paste', true);
 
 key.setEditKey('C-w', function (ev) {
-    goDoCommand("cmd_copy");
-    goDoCommand("cmd_delete");
-    command.resetMark(ev);
+		goDoCommand("cmd_copy");
+		goDoCommand("cmd_delete");
+		command.resetMark(ev);
 }, 'Cut current region', true);
 
 key.setEditKey('M-n', function () {
-    command.walkInputElement(command.elementsRetrieverTextarea, true, true);
+		command.walkInputElement(command.elementsRetrieverTextarea, true, true);
 }, 'Focus to the next text area');
 
 key.setEditKey('M-p', function () {
-    command.walkInputElement(command.elementsRetrieverTextarea, false, true);
+		command.walkInputElement(command.elementsRetrieverTextarea, false, true);
 }, 'Focus to the previous text area');
 
-key.setCaretKey([['C-a'], ['^']], function (ev) {
-    ev.target.ksMarked ? goDoCommand("cmd_selectBeginLine") : goDoCommand("cmd_beginLine");
+key.setCaretKey([['C-c'], ['^']], function (ev) {
+		ev.target.ksMarked ? goDoCommand("cmd_selectBeginLine") : goDoCommand("cmd_beginLine");
 }, 'Move caret to the beginning of the line');
 
 key.setCaretKey([['C-e'], ['$'], ['M->'], ['G']], function (ev) {
-    ev.target.ksMarked ? goDoCommand("cmd_selectEndLine") : goDoCommand("cmd_endLine");
+		ev.target.ksMarked ? goDoCommand("cmd_selectEndLine") : goDoCommand("cmd_endLine");
 }, 'Move caret to the end of the line');
 
 key.setCaretKey([['C-n'], ['j']], function (ev) {
-    ev.target.ksMarked ? goDoCommand("cmd_selectLineNext") : goDoCommand("cmd_scrollLineDown");
+		ev.target.ksMarked ? goDoCommand("cmd_selectLineNext") : goDoCommand("cmd_scrollLineDown");
 }, 'Move caret to the next line');
 
 key.setCaretKey([['C-p'], ['k']], function (ev) {
-    ev.target.ksMarked ? goDoCommand("cmd_selectLinePrevious") : goDoCommand("cmd_scrollLineUp");
+		ev.target.ksMarked ? goDoCommand("cmd_selectLinePrevious") : goDoCommand("cmd_scrollLineUp");
 }, 'Move caret to the previous line');
 
 key.setCaretKey([['C-f'], ['l']], function (ev) {
-    ev.target.ksMarked ? goDoCommand("cmd_selectCharNext") : goDoCommand("cmd_scrollRight");
+		ev.target.ksMarked ? goDoCommand("cmd_selectCharNext") : goDoCommand("cmd_scrollRight");
 }, 'Move caret to the right');
 
 key.setCaretKey([['C-b'], ['h'], ['C-h']], function (ev) {
-    ev.target.ksMarked ? goDoCommand("cmd_selectCharPrevious") : goDoCommand("cmd_scrollLeft");
+		ev.target.ksMarked ? goDoCommand("cmd_selectCharPrevious") : goDoCommand("cmd_scrollLeft");
 }, 'Move caret to the left');
 
 key.setCaretKey([['M-f'], ['w']], function (ev) {
-    ev.target.ksMarked ? goDoCommand("cmd_selectWordNext") : goDoCommand("cmd_wordNext");
+		ev.target.ksMarked ? goDoCommand("cmd_selectWordNext") : goDoCommand("cmd_wordNext");
 }, 'Move caret to the right by word');
 
 key.setCaretKey([['M-b'], ['W']], function (ev) {
-    ev.target.ksMarked ? goDoCommand("cmd_selectWordPrevious") : goDoCommand("cmd_wordPrevious");
+		ev.target.ksMarked ? goDoCommand("cmd_selectWordPrevious") : goDoCommand("cmd_wordPrevious");
 }, 'Move caret to the left by word');
 
 key.setCaretKey([['C-v'], ['SPC']], function (ev) {
-    ev.target.ksMarked ? goDoCommand("cmd_selectPageNext") : goDoCommand("cmd_movePageDown");
+		ev.target.ksMarked ? goDoCommand("cmd_selectPageNext") : goDoCommand("cmd_movePageDown");
 }, 'Move caret down by page');
 
 key.setCaretKey([['M-v'], ['b']], function (ev) {
-    ev.target.ksMarked ? goDoCommand("cmd_selectPagePrevious") : goDoCommand("cmd_movePageUp");
+		ev.target.ksMarked ? goDoCommand("cmd_selectPagePrevious") : goDoCommand("cmd_movePageUp");
 }, 'Move caret up by page');
 
 key.setCaretKey([['M-<'], ['g']], function (ev) {
-    ev.target.ksMarked ? goDoCommand("cmd_selectTop") : goDoCommand("cmd_scrollTop");
+		ev.target.ksMarked ? goDoCommand("cmd_selectTop") : goDoCommand("cmd_scrollTop");
 }, 'Move caret to the top of the page');
 
 key.setCaretKey('J', function () {
-    util.getSelectionController().scrollLine(true);
+		util.getSelectionController().scrollLine(true);
 }, 'Scroll line down');
 
 key.setCaretKey('K', function () {
-    util.getSelectionController().scrollLine(false);
+		util.getSelectionController().scrollLine(false);
 }, 'Scroll line up');
 
 key.setCaretKey(',', function () {
-    util.getSelectionController().scrollHorizontal(true);
-    goDoCommand("cmd_scrollLeft");
+		util.getSelectionController().scrollHorizontal(true);
+		goDoCommand("cmd_scrollLeft");
 }, 'Scroll left');
 
 key.setCaretKey('.', function () {
-    goDoCommand("cmd_scrollRight");
-    util.getSelectionController().scrollHorizontal(false);
+		goDoCommand("cmd_scrollRight");
+		util.getSelectionController().scrollHorizontal(false);
 }, 'Scroll right');
 
 key.setCaretKey('z', function (ev) {
-    command.recenter(ev);
+		command.recenter(ev);
 }, 'Scroll to the cursor position');
 
 key.setCaretKey([['C-SPC'], ['C-@']], function (ev) {
-    command.setMark(ev);
+		command.setMark(ev);
 }, 'Set the mark', true);
 
 key.setCaretKey(':', function (ev, arg) {
-    shell.input(null, arg);
+		shell.input(null, arg);
 }, 'List and execute commands', true);
 
 key.setCaretKey('R', function () {
-    BrowserReload();
+		BrowserReload();
 }, 'Reload the page', true);
 
 key.setCaretKey('B', function () {
-    BrowserBack();
+		BrowserBack();
 }, 'Back');
 
 key.setCaretKey('F', function () {
-    BrowserForward();
+		BrowserForward();
 }, 'Forward');
 
 key.setCaretKey(['C-x', 'h'], function () {
-    goDoCommand("cmd_selectAll");
+		goDoCommand("cmd_selectAll");
 }, 'Select all', true);
 
 key.setCaretKey('f', function () {
-    command.focusElement(command.elementsRetrieverTextarea, 0);
+		command.focusElement(command.elementsRetrieverTextarea, 0);
 }, 'Focus to the first textarea', true);
 
 key.setCaretKey('M-p', function () {
-    command.walkInputElement(command.elementsRetrieverButton, true, true);
+		command.walkInputElement(command.elementsRetrieverButton, true, true);
 }, 'Focus to the next button');
 
 key.setCaretKey('M-n', function () {
-    command.walkInputElement(command.elementsRetrieverButton, false, true);
+		command.walkInputElement(command.elementsRetrieverButton, false, true);
 }, 'Focus to the previous button');
-
-// CUSTOM STUFF IS HERE:
-
-key.setGlobalKey(["C-c", "C-t"],
-    function (ev, arg) {
-        ext.exec("twitter-client-display-timeline", arg);
-    }, "Display your timeline", true);
-
-key.setGlobalKey(["C-c", "C-@"],
-    function (ev, arg) {
-        ext.exec("twitter-client-show-mentions", arg);
-    }, "Display your timeline", true);
-
-key.setGlobalKey(["C-c", "C-T"],
-    function (ev, arg) {
-        ext.exec("twitter-client-tweet-this-page", arg);
-    }, "Tweet with the title and URL of this page", true);
-
-key.setGlobalKey(["C-x", "b"],
-    function (ev, arg) {
-        ext.exec("tanything", arg);
-    }, "Tanyting buffer switching", true);
-
-hook.setHook('KeyBoardQuit', function (ev) {
-    util.rangeInterrupted = true;
-    if (key.currentKeySequence.length)
-        return;
-    command.closeFindBar();
-
-    var marked = command.marked(ev);
-
-    if (util.isCaretEnabled())
-    {
-        if (marked)
-            command.resetMark(ev);
-        else
-        {
-            if ("blur" in ev.target)
-                ev.target.blur();
-            gBrowser.focus();
-            _content.focus();
-        }
-    }
-    else
-    {
-        goDoCommand("cmd_selectNone");
-    }
-
-    if (KeySnail.windowType === "navigator:browser" && !marked)
-    {
-        key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_ESCAPE, true);
-        prompt.finish(true);
-    }
-});
-
-// manage closed tabs
-ext.add("list-closed-tabs", function () {
-    const fav = "chrome://mozapps/skin/places/defaultFavicon.png";
-    var ss   = Cc["@mozilla.org/browser/sessionstore;1"].getService(Ci.nsISessionStore);
-    var json = Cc["@mozilla.org/dom/json;1"].createInstance(Ci.nsIJSON);
-    var closedTabs = [[tab.image || fav, tab.title] for each (tab in json.decode(ss.getClosedTabData(window)))];
-
-    if (!closedTabs.length)
-        return void display.echoStatusBar("there are no closed tabs.", 2000);
-
-    prompt.selector(
-        {
-            message    : "select tab to undo:",
-            collection : closedTabs,
-            flags      : [ICON | IGNORE, 0],
-            callback   : function (i) { if (i >= 0) window.undoCloseTab(i); }
-        });
-}, "List closed tabs");
-
-// increment / decrement url number
-key.setViewKey('>', function (ev, arg) {
-    let pattern = /(.*?)([0]*)([0-9]+)([^0-9]*)$/;
-    let url = content.location.href;
-    let digit = url.match(pattern);
-
-    if (digit[1] && digit[3])
-    {
-        let len = digit[3].length;
-        let next = +digit[3] + (arg ? arg : 1);
-        content.location.href = digit[1] + (digit[2] ||"").slice(next.toString().length - len) + next + (digit[4] ||"");
-    }
-}, 'Increment last digit in the URL');
-
-key.setViewKey('<', function (ev, arg) {
-    let pattern = /(.*?)([0]*)([0-9]+)([^0-9]*)$/;
-    let url = content.location.href;
-    let digit = url.match(pattern);
-
-    if (digit[1] && digit[3])
-    {
-        let len = digit[3].length;
-        let next = +digit[3] - (arg ? arg : 1);
-        content.location.href = digit[1] + (digit[2] ||"").slice(next.toString().length - len) + next + (digit[4] ||"");
-    }
-}, 'Decrement last digit in the URL');

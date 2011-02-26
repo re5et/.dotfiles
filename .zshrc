@@ -22,9 +22,15 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
-EDITOR="emacs -nw --no-init"
+EDITOR="emacsclient -c"
 BROWSER=/usr/bin/firefox
 PATH=$PATH:~/bin
+
+alias scp='scp -r'
+alias rc='rails c'
+alias rdbc='rails dbconsole'
+alias rs='rails s'
+alias rg='rails g'
 
 # for rvm
 unsetopt auto_name_dirs

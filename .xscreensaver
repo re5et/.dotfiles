@@ -6,6 +6,7 @@ passwdTimeout:	0:00:02
 splash:		    False
 fade:           False
 unfade:         False
+dpmsOff:        0:15:00
 
 programs:								      \
   GL: 				electricsheep --root 1			    \n\
