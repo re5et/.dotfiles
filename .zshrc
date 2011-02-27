@@ -26,13 +26,13 @@ EDITOR="emacsclient -c"
 BROWSER=/usr/bin/firefox
 PATH=$PATH:~/bin
 
+# aliases
 alias scp='scp -r'
 alias rc='rails c'
 alias rdbc='rails dbconsole'
 alias rs='rails s'
 alias rg='rails g'
-
+alias be='bundle exec'
 # for rvm
 unsetopt auto_name_dirs
-
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
