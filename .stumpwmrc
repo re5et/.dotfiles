@@ -1,1 +1,125 @@
-.dotfiles/.stumpwmrc
+; -*-Lisp-*-
+
+(in-package :stumpwm)
+
+;; shell program used by `run-shell-command' (`sh' by default, which is *not*
+;; `bash')
+(setq *shell-program* (stumpwm::getenv "SHELL"))  ; `getenv' is not exported
+
+(stumpwm:set-prefix-key (stumpwm:kbd "C-h"))
+
+;; turn on the modeline
+(if (not (head-mode-line (current-head)))
+    (toggle-mode-line (current-screen) (current-head)))
+					; A head is a physical monitor. A screen is a section of video memory
+					; that heads are mapped on to. When using xinerama you generally have
+					; 1 screen and many heads. When not using xinerama each screen is a
+					; physical monitor so you have many screens with only one head on them.
+
+;; (load "/home/atom/stumpwm/contrib/mem.lisp")
+;; (load "/home/atom/stumpwm/contrib/net.lisp")
+;; (load "/home/atom/stumpwm/contrib/battery.lisp")
+;; (load "/home/atom/stumpwm/contrib/disk.lisp")
+;; (load "/home/atom/stumpwm/contrib/cpu.lisp")
+
+
+;; modeline background color
+(setf
+ *input-window-gravity* :top-left
+ *mouse-focus-policy* :ignore
+ *message-window-gravity* :top-left
+ *mode-line-timeout* 1
+ *mode-line-pad-y* 0
+ *mode-line-background-color* "black"
+ *mode-line-foreground-color* "gray20"
+ *mode-line-border-color* "gray20"
+ *screen-mode-line-format* (list
+			    '(:eval (run-shell-command "~/bin/modeline" t))
+			    " ^B^5*%D^n ^B^3*%c^n ^B^6*%M%N^n ^B^3*%l^n %W"
+			    ))
+
+(set-focus-color "blue")
+
+;; emacs style splitting
+(define-key *root-map* (kbd "0") "remove")
+(define-key *root-map* (kbd "1") "only")
+(define-key *root-map* (kbd "2") "vsplit")
+(define-key *root-map* (kbd "3") "hsplit")
+
+;; new sakura terminal
+(define-key *root-map* (kbd "t") "exec sakura")
+
+;; top level commands
+(define-key *top-map* (kbd "C-RET") "fullscreen")
+(define-key *top-map* (kbd "C-M-RET") "exec xscreensaver-command -lock")
+
+(define-key *top-map* (kbd "C-:") "pull-hidden-next")
+(define-key *top-map* (kbd "C-\"") "pull-hidden-previous")
+(define-key *top-map* (kbd "C-;") "next")
+(define-key *top-map* (kbd "C-'") "prev")
+(define-key *top-map* (kbd "C-M-;") "colon")
+
+(define-key *top-map* (kbd "C-M-Left") "move-window left")
+(define-key *top-map* (kbd "C-M-Right") "move-window right")
+
+;; volume control
+(define-key *top-map* (kbd "C-Up") "exec amixer -c 0 set Master 4dB+")
+(define-key *top-map* (kbd "C-Down") "exec amixer -c 0 set Master 4dB-")
+
+;; mpc stuff
+(define-key *root-map* (kbd "C-p") "exec mpc toggle")
+(defvar *mpc-bindings*
+  (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "p") "exec mpc toggle")
+    (define-key m (kbd "s") "exec mpc stop")
+    (define-key m (kbd "f") "exec mpc next")
+    (define-key m (kbd "b") "exec mpc prev")
+    m ; NOTE: this is important
+    ))
+(define-key *root-map* (kbd "m") '*mpc-bindings*)
+
+;; make my default groups
+(run-commands "gnew firefox"
+	      "gnew emacs"
+	      "gnew terms"
+	      "gnew misc"
+	      "gnew virtuals")
+
+;; get around groups easier
+(define-key *top-map* (kbd "C-1") "gselect firefox")
+(define-key *top-map* (kbd "C-2") "gselect emacs")
+(define-key *top-map* (kbd "C-3") "gselect terms")
+(define-key *top-map* (kbd "C-4") "gselect misc")
+(define-key *top-map* (kbd "C-5") "gselect virtuals")
+
+(defcommand firefox () ()
+  "Start Firefox or switch to it, if it is already running."
+  (run-or-raise "firefox" '(:class "Firefox")))
+(define-key *root-map* (kbd "f") "firefox")
+
+(defcommand emacs () ()
+  "Start Emacs or switch to it, if it is already running."
+  (run-or-raise "emacs" '(:class "Firefox")))
+(define-key *root-map* (kbd "e") "/home/atom/.emacs24/src/emacs")
+
+;; (run-shell-command "firefox")
+;; (run-shell-command "virtualbox")
+;; (run-commands "exec gnome-terminal -e finch")
+;; (run-commands "hsplit")
+;; (run-commands "exec gnome-terminal -e ncmpcpp")
+;; (run-shell-command "gnome-terminal")
+;; (run-shell-command "gnome-terminal")
+;; (run-shell-command "gnome-terminal")
+;; (run-shell-command "gnome-terminal")
+;; (run-shell-command "emacs")
+
+(defun raise-urgent-window-hook (target)
+  (gselect (window-group target))
+  (really-raise-window target))
+(add-hook *urgent-window-hook* 'raise-urgent-window-hook)
+
+(defvar *mpc-bindings*
+  (let ((m (stumpwm:make-sparse-keymap)))
+    (stumpwm:define-key m (stumpwm:kbd "p") "exec mpc toggle")
+    m ; NOTE: this is important
+    ))
