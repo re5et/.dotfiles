@@ -95,6 +95,11 @@
   (run-or-raise "firefox" '(:role "browser")))
 (define-key *root-map* (kbd "f") "firefox")
 
+(defcommand chromium () ()
+  "Start Chromium or switch to it, if it is already running."
+  (run-or-raise "chromium-browser" '(:class "Chromium-browser")))
+(define-key *root-map* (kbd "c") "chromium")
+
 (defcommand emacs () ()
   "Start Emacs or switch to it, if it is already running."
   (run-or-raise "emacs" '(:class "Emacs")))
