@@ -105,18 +105,6 @@
 	(run-or-raise "sakura --class=screen -e screen" '(:class "screen")))
 (define-key *root-map* (kbd "s") "screen")
 
-;; (run-shell-command "firefox")
-;; (run-shell-command "virtualbox")
-;; (run-commands "exec gnome-terminal -e finch")
-;; (run-commands "hsplit")
-;; (run-commands "exec gnome-terminal -e ncmpcpp")
-;; (run-shell-command "gnome-terminal")
-;; (run-shell-command "gnome-terminal")
-;; (run-shell-command "gnome-terminal")
-;; (run-shell-command "gnome-terminal")
-;; (run-shell-command "emacs")
-
-
 ;; display the key sequence in progress
 (defun key-press-hook (key key-seq cmd)
   (declare (ignore key))
