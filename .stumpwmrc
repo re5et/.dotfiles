@@ -105,10 +105,10 @@
   (run-or-raise "emacs" '(:class "Emacs")))
 (define-key *root-map* (kbd "e") "emacs")
 
-(defcommand screen () ()
-	"Start screen or switch to it, if it is already running."
-	(run-or-raise "sakura --class=screen -e screen" '(:class "screen")))
-(define-key *root-map* (kbd "s") "screen")
+(defcommand tmux () ()
+	"Start tmux or switch to it, if it is already running."
+	(run-or-raise "sakura --class=tmux -e tmux" '(:class "tmux")))
+(define-key *root-map* (kbd "s") "tmux")
 
 ;; display the key sequence in progress
 (defun key-press-hook (key key-seq cmd)
