@@ -1,4 +1,4 @@
-; -*-Lisp-*-
+;; -*-Lisp-*-
 
 (in-package :stumpwm)
 
@@ -11,10 +11,10 @@
 ;; turn on the modeline
 (if (not (head-mode-line (current-head)))
     (toggle-mode-line (current-screen) (current-head)))
-					; A head is a physical monitor. A screen is a section of video memory
-					; that heads are mapped on to. When using xinerama you generally have
-					; 1 screen and many heads. When not using xinerama each screen is a
-					; physical monitor so you have many screens with only one head on them.
+;; A head is a physical monitor. A screen is a section of video memory
+;; that heads are mapped on to. When using xinerama you generally have
+;; 1 screen and many heads. When not using xinerama each screen is a
+;; physical monitor so you have many screens with only one head on them.
 
 ;; (load "/home/atom/stumpwm/contrib/mem.lisp")
 ;; (load "/home/atom/stumpwm/contrib/net.lisp")
@@ -34,9 +34,9 @@
  *mode-line-foreground-color* "gray20"
  *mode-line-border-color* "gray20"
  *screen-mode-line-format* (list
-			    '(:eval (run-shell-command "~/bin/modeline" t))
-			    " ^B^5*%D^n ^B^3*%c^n ^B^6*%M%N^n ^B^3*%l^n %W"
-			    ))
+                            '(:eval (run-shell-command "~/bin/modeline" t))
+                            " ^B^5*%D^n ^B^3*%c^n ^B^6*%M%N^n ^B^3*%l^n %W"
+                            ))
 
 (set-focus-color "blue")
 
@@ -80,27 +80,34 @@
 
 ;; make my default groups
 (run-commands "gnew firefox"
-	      "gnew emacs"
-	      "gnew terms"
-	      "gnew misc"
-	      "gnew virtuals")
+              "gnew emacs"
+              "gnew torrents"
+              "gnew misc"
+              "gnew virtuals")
 
 ;; get around groups easier
 (define-key *top-map* (kbd "C-1") "gselect firefox")
 (define-key *top-map* (kbd "C-2") "gselect emacs")
-(define-key *top-map* (kbd "C-3") "gselect terms")
+(define-key *top-map* (kbd "C-3") "gselect torrents")
 (define-key *top-map* (kbd "C-4") "gselect misc")
 (define-key *top-map* (kbd "C-5") "gselect virtuals")
 
 (defcommand firefox () ()
   "Start Firefox or switch to it, if it is already running."
-  (run-or-raise "firefox" '(:class "Firefox")))
+  (run-or-raise "firefox" '(:role "browser")))
 (define-key *root-map* (kbd "f") "firefox")
+
+
 
 (defcommand emacs () ()
   "Start Emacs or switch to it, if it is already running."
-  (run-or-raise "emacs" '(:class "Firefox")))
-(define-key *root-map* (kbd "e") "/home/atom/.emacs24/src/emacs")
+  (run-or-raise "emacs" '(:class "Emacs")))
+(define-key *root-map* (kbd "e") "emacs")
+
+(defcommand screen () ()
+	"Start screen or switch to it, if it is already running."
+	(run-or-raise "sakura --class=screen -e screen" '(:class "screen")))
+(define-key *root-map* (kbd "s") "screen")
 
 ;; (run-shell-command "firefox")
 ;; (run-shell-command "virtualbox")
