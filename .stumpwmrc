@@ -79,25 +79,21 @@
 (define-key *root-map* (kbd "m") '*mpc-bindings*)
 
 ;; make my default groups
-(run-commands "gnew firefox"
-              "gnew emacs"
-              "gnew torrents"
-              "gnew misc"
-              "gnew virtuals")
+(run-commands "gnew main"
+              "gnew other"
+							"gnew vms"
+              "gnew trash")
 
 ;; get around groups easier
-(define-key *top-map* (kbd "C-1") "gselect firefox")
-(define-key *top-map* (kbd "C-2") "gselect emacs")
-(define-key *top-map* (kbd "C-3") "gselect torrents")
-(define-key *top-map* (kbd "C-4") "gselect misc")
-(define-key *top-map* (kbd "C-5") "gselect virtuals")
+(define-key *top-map* (kbd "C-1") "gselect main")
+(define-key *top-map* (kbd "C-2") "gselect other")
+(define-key *top-map* (kbd "C-3") "gselect vms")
+(define-key *top-map* (kbd "C-4") "gselect trash")
 
 (defcommand firefox () ()
   "Start Firefox or switch to it, if it is already running."
   (run-or-raise "firefox" '(:role "browser")))
 (define-key *root-map* (kbd "f") "firefox")
-
-
 
 (defcommand emacs () ()
   "Start Emacs or switch to it, if it is already running."
