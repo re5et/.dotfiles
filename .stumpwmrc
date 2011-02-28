@@ -128,3 +128,15 @@
     (stumpwm:define-key m (stumpwm:kbd "p") "exec mpc toggle")
     m ; NOTE: this is important
     ))
+
+(defcommand yank () ()
+	(window-send-string (get-x-selection)))
+(define-key *root-map* (kbd "0") "yank")
+;; (let ((text (get-x-selection 1)))
+;; 	(and text (window-send-string text))))
+
+(firefox)
+(emacs)
+(screen)
+(run-shell-command "chromium-browser")
+(run-shell-command "xscreensaver-command -exit; killall xscreensaver 2>/dev/null; xscreensaver")
