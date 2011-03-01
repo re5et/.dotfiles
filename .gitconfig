@@ -1,7 +1,14 @@
 [core]
-	excludesfile = ~/.gitignore
-	fileMode = false
-	editor = vim
+  excludesfile = ~/.gitignore
+  fileMode = false
+  editor=emacsclient -c
+  autocrlf=false
+  logallrefupdates=true
+  repositoryformatversion=0
 [user]
-	name = re5et
-	email = re5etsmyth@gmail.com
+  name=re5et
+  email=re5etsmyth@gmail.com
+[color]
+  ui=auto
+[github]
+  user=re5et
