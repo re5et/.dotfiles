@@ -513,7 +513,7 @@ key.setEditKey('M-p', function () {
 		command.walkInputElement(command.elementsRetrieverTextarea, false, true);
 }, 'Focus to the previous text area');
 
-key.setCaretKey([['C-c'], ['^']], function (ev) {
+key.setCaretKey('C-a', function (ev) {
 		ev.target.ksMarked ? goDoCommand("cmd_selectBeginLine") : goDoCommand("cmd_beginLine");
 }, 'Move caret to the beginning of the line');
 
