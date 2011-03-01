@@ -6,7 +6,7 @@
                "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
              '("elpa" . "http://tromey.com/elpa/"))
-;;; SETQ
+;;; SET STUFF
 (setq custom-file "~/.emacs.d/custom.el"
       tramp-default-method "ssh"
       ido-enable-flex-matching t
@@ -21,10 +21,11 @@
       next-line-add-newlines nil
       recentf-max-saved-items 50
       column-number-mode t
-			ido-max-directory-size 100000
+      ido-max-directory-size 100000
       font-lock-maximum-decoration t)
 
 (setq-default kill-read-only-ok t)
+(setq-default indent-tabs-mode nil)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -32,10 +33,8 @@
 (let ((default-directory "~/.emacs.d/"))
   (normal-top-level-add-subdirs-to-load-path))
 
-;; ;;; LOAD
-;; (load "smartscan.el")
-;; (load "rename-file-and-buffer.el")
-;; (load "php-mode.el")
+;; LOAD
+(load "smartscan.el")
 (load "mpd.el")
 (load "feature-mode/feature-mode.el")
 (load "my-functions.el")
@@ -114,3 +113,8 @@
 (global-set-key (kbd "C-c i d") 'insert-dir-name)
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "M-?") 'comint-dynamic-complete-filename)
+(global-set-key (kbd "C-x :") 'execute-extended-command)
+;; wtf am i doing
+(define-key key-translation-map "\C-j" "\C-x")
+
+;;(setq auto-window-vscroll nil)
