@@ -123,10 +123,10 @@
 
 (replace-hook *key-press-hook* 'key-press-hook)
 
-(defun raise-urgent-window-hook (target)
-  (gselect (window-group target))
-  (really-raise-window target))
-(add-hook *urgent-window-hook* 'raise-urgent-window-hook)
+;; (defun raise-urgent-window-hook (target)
+;;   (gselect (window-group target))
+;;   (really-raise-window target))
+;; (add-hook *urgent-window-hook* 'raise-urgent-window-hook)
 
 (defvar *mpc-bindings*
   (let ((m (stumpwm:make-sparse-keymap)))
