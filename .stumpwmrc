@@ -2,9 +2,9 @@
 
 (in-package :stumpwm)
 
-;; shell program used by `run-shell-command' (`sh' by default, which is *not*
+;; shell program used by `run-shell-commnd' (`sh' by default, which is *not*
 ;; `bash')
-(setq *shell-program* (stumpwm::getenv "SHELL"))  ; `getenv' is not exported
+(setq *shell-program* (stumpwm::getenv "SHELL"))  ; `getenv' is not exporated
 
 (stumpwm:set-prefix-key (stumpwm:kbd "C-h"))
 
@@ -50,7 +50,7 @@
 (define-key *root-map* (kbd "t") "exec sakura")
 
 ;; top level commands
-(define-key *top-map* (kbd "C-RET") "fullscreen")
+(define-key *top-map* (kbd "C-S-RET") "fullscreen")
 (define-key *top-map* (kbd "C-M-RET") "exec xscreensaver-command -lock")
 
 (define-key *top-map* (kbd "C-:") "pull-hidden-next")
@@ -136,7 +136,7 @@
 
 (defcommand yank () ()
 	(window-send-string (get-x-selection)))
-(define-key *root-map* (kbd "0") "yank")
+(define-key *root-map* (kbd "y") "yank")
 ;; (let ((text (get-x-selection 1)))
 ;; 	(and text (window-send-string text))))
 
