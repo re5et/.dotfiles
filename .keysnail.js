@@ -157,19 +157,20 @@ key.setViewKey('<', function (ev, arg) {
   }
 }, 'Decrement last digit in the URL');
 
-// stop searching by hit Enter on search box
-gFindBar.getElement("findbar-textbox").addEventListener("keypress", emacslike_search, false);
-
-function emacslike_search(ev){
-  // if(ev.ctrlKey && ev.charCode == 115){ // C-s
-  //     gFindBar.onFindAgainCommand(false);
-  // }
-  if(ev.keyCode == 13){ // Enter
-    gFindBar.onFindAgainCommand(true);
-    gFindBar.close();
-  }
-	//TODO: save searching start point and back to it when searching is finished with C-g
-}
+// // stop searching by hit Enter on search box
+// if(gFindBar != undefined){
+//   gFindBar.getElement("findbar-textbox").addEventListener("keypress", emacslike_search, false);
+// }
+// function emacslike_search(ev){
+//   // if(ev.ctrlKey && ev.charCode == 115){ // C-s
+//   //     gFindBar.onFindAgainCommand(false);
+//   // }
+//   if(ev.keyCode == 13 && gFindBar != undefined){ // Enter
+//     gFindBar.onFindAgainCommand(true);
+//     gFindBar.close();
+//   }
+// 	//TODO: save searching start point and back to it when searching is finished with C-g
+// }
 
 //}}%PRESERVE%
 // ========================================================================= //
