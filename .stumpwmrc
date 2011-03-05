@@ -142,6 +142,6 @@
 
 (firefox)
 (emacs)
-(screen)
+(tmux)
 (run-shell-command "chromium-browser")
 (run-shell-command "xscreensaver-command -exit; killall xscreensaver 2>/dev/null; xscreensaver")
