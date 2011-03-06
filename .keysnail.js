@@ -46,6 +46,10 @@ plugins.options["hok.hint_color_form"]    = 'rgba(157, 82, 255, 1)';
 plugins.options["hok.hint_color_focused"] = 'rgba(255, 0, 255, 1)';
 plugins.options["hok.hint_color_candidates"] = 'rgba(255, 100, 255, 1)';
 
+key.setGlobalKey('C-j', function(){
+	return false;
+}, 'stop C-j from entering search so it can be used for prefixing.');
+
 key.setGlobalKey('C-,', function (ev, arg) {
   ext.exec("hok-start-foreground-mode", arg, ev);
 }, 'Start Hit a Hint foreground mode', true);
