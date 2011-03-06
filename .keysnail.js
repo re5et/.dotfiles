@@ -648,17 +648,17 @@ key.setCaretKey('M-n', function () {
 }, 'Focus to the previous button');
 
 key.setViewKey('H', function () {
-    if (gBrowser.mCurrentTab.previousSibling) {
-        gBrowser.moveTabTo(gBrowser.mCurrentTab, gBrowser.mCurrentTab._tPos - 1);
-    } else {
-        gBrowser.moveTabTo(gBrowser.mCurrentTab, gBrowser.mTabContainer.childNodes.length - 1);
-    }
+  if (gBrowser.mCurrentTab.previousSibling) {
+    gBrowser.moveTabTo(gBrowser.mCurrentTab, gBrowser.mCurrentTab._tPos - 1);
+  } else {
+    gBrowser.moveTabTo(gBrowser.mCurrentTab, gBrowser.mTabContainer.childNodes.length - 1);
+  }
 }, 'Shift selected tab right');
 
 key.setViewKey('L', function () {
-    if (gBrowser.mCurrentTab.nextSibling) {
-        gBrowser.moveTabTo(gBrowser.mCurrentTab, gBrowser.mCurrentTab._tPos + 1);
-    } else {
-        gBrowser.moveTabTo(gBrowser.mCurrentTab, 0);
-    }
+  if (gBrowser.mCurrentTab.nextSibling) {
+    gBrowser.moveTabTo(gBrowser.mCurrentTab, gBrowser.mCurrentTab._tPos + 1);
+  } else {
+    gBrowser.moveTabTo(gBrowser.mCurrentTab, 0);
+  }
 }, 'Shift selected tab left');
