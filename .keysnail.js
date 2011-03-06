@@ -63,17 +63,17 @@ key.setGlobalKey(['C-c', 'C-,'], function (ev, arg) {
   ext.exec("hok-start-extended-mode", arg, ev);
 }, 'HOK extended awesome!', true);
 
-key.setGlobalKey(["C-c", "C-t"],
+key.setGlobalKey(["C-j", "C-t"],
                  function (ev, arg) {
                    ext.exec("twitter-client-display-timeline", arg);
                  }, "Display your timeline", true);
 
-key.setGlobalKey(["C-c", "C-@"],
+key.setGlobalKey(["C-j", "C-@"],
                  function (ev, arg) {
                    ext.exec("twitter-client-show-mentions", arg);
                  }, "Display your timeline", true);
 
-key.setGlobalKey(["C-c", "C-T"],
+key.setGlobalKey(["C-j", "C-T"],
                  function (ev, arg) {
                    ext.exec("twitter-client-tweet-this-page", arg);
                  }, "Tweet with the title and URL of this page", true);
