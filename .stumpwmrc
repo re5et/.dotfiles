@@ -81,7 +81,7 @@
 ;; make my default groups
 (run-commands "gnew main"
               "gnew other"
-							"gnew vms"
+              "gnew vms"
               "gnew trash")
 
 ;; get around groups easier
@@ -106,8 +106,8 @@
 (define-key *root-map* (kbd "e") "emacs")
 
 (defcommand tmux () ()
-	"Start tmux or switch to it, if it is already running."
-	(run-or-raise "sakura --class=tmux -e tmux" '(:class "tmux")))
+  "Start tmux or switch to it, if it is already running."
+  (run-or-raise "sakura --class=tmux -e tmux" '(:class "tmux")))
 (define-key *root-map* (kbd "s") "tmux")
 
 ;; display the key sequence in progress
@@ -135,10 +135,10 @@
     ))
 
 (defcommand yank () ()
-	(window-send-string (get-x-selection)))
+  (window-send-string (get-x-selection)))
 (define-key *root-map* (kbd "y") "yank")
 ;; (let ((text (get-x-selection 1)))
-;; 	(and text (window-send-string text))))
+;;  (and text (window-send-string text))))
 
 (firefox)
 (emacs)
