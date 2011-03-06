@@ -60,24 +60,24 @@ key.setGlobalKey(['C-c', 'C-,'], function (ev, arg) {
 }, 'HOK extended awesome!', true);
 
 key.setGlobalKey(["C-c", "C-t"],
-								 function (ev, arg) {
-									 ext.exec("twitter-client-display-timeline", arg);
-								 }, "Display your timeline", true);
+                 function (ev, arg) {
+                   ext.exec("twitter-client-display-timeline", arg);
+                 }, "Display your timeline", true);
 
 key.setGlobalKey(["C-c", "C-@"],
-								 function (ev, arg) {
-									 ext.exec("twitter-client-show-mentions", arg);
-								 }, "Display your timeline", true);
+                 function (ev, arg) {
+                   ext.exec("twitter-client-show-mentions", arg);
+                 }, "Display your timeline", true);
 
 key.setGlobalKey(["C-c", "C-T"],
-								 function (ev, arg) {
-									 ext.exec("twitter-client-tweet-this-page", arg);
-								 }, "Tweet with the title and URL of this page", true);
+                 function (ev, arg) {
+                   ext.exec("twitter-client-tweet-this-page", arg);
+                 }, "Tweet with the title and URL of this page", true);
 
 key.setGlobalKey(["C-x", "b"],
-								 function (ev, arg) {
-									 ext.exec("tanything", arg);
-								 }, "Tanyting buffer switching", true);
+                 function (ev, arg) {
+                   ext.exec("tanything", arg);
+                 }, "Tanyting buffer switching", true);
 
 hook.setHook('KeyBoardQuit', function (ev) {
   util.rangeInterrupted = true;
@@ -169,7 +169,7 @@ key.setViewKey('<', function (ev, arg) {
 //     gFindBar.onFindAgainCommand(true);
 //     gFindBar.close();
 //   }
-// 	//TODO: save searching start point and back to it when searching is finished with C-g
+//  //TODO: save searching start point and back to it when searching is finished with C-g
 // }
 
 //}}%PRESERVE%
@@ -195,12 +195,12 @@ key.suspendKey           = "C-M-<f2>";
 
 key.setViewKey('C-i', function (ev, arg) {
   util.setBoolPref("accessibility.browsewithcaret", true);
-	display.prettyPrint("caret mode enabled.", {timeout: 500, fade: 200});
+  display.prettyPrint("caret mode enabled.", {timeout: 500, fade: 200});
 }, 'Enter to caret mode', true);
 
 key.setCaretKey('C-i', function (ev, arg) {
   util.setBoolPref("accessibility.browsewithcaret", false);
-	display.prettyPrint("caret mode disabled.", {timeout: 500, fade: 200});
+  display.prettyPrint("caret mode disabled.", {timeout: 500, fade: 200});
 }, 'Leave from caret mode', true);
 
 key.setGlobalKey('C-M-r', function () {
@@ -336,7 +336,7 @@ key.setViewKey([['M-v'], ['b']], function () {
   goDoCommand("cmd_scrollPageUp");
 }, 'Scroll page up');
 
-key.setViewKey('C-v', function () {
+key.setGlobalKey('C-v', function () {
   goDoCommand("cmd_scrollPageDown");
 }, 'Scroll page down');
 
@@ -515,130 +515,146 @@ key.setEditKey('C-y', command.yank, 'Paste (Yank)');
 key.setEditKey('M-y', command.yankPop, 'Paste pop (Yank pop)', true);
 
 key.setEditKey('C-M-y', function (ev) {
-	if (!command.kill.ring.length) {
-		return;
-	}
-	let (ct = command.getClipboardText()) (!command.kill.ring.length || ct != command.kill.ring[0]) &&
-		command.pushKillRing(ct);
-	prompt.selector({message: "Paste:", collection: command.kill.ring, callback: function (i) {if (i >= 0) {key.insertText(command.kill.ring[i]);}}});
+  if (!command.kill.ring.length) {
+    return;
+  }
+  let (ct = command.getClipboardText()) (!command.kill.ring.length || ct != command.kill.ring[0]) &&
+    command.pushKillRing(ct);
+  prompt.selector({message: "Paste:", collection: command.kill.ring, callback: function (i) {if (i >= 0) {key.insertText(command.kill.ring[i]);}}});
 }, 'Show kill-ring and select text to paste', true);
 
 key.setEditKey('C-w', function (ev) {
-	goDoCommand("cmd_copy");
-	goDoCommand("cmd_delete");
-	command.resetMark(ev);
+  goDoCommand("cmd_copy");
+  goDoCommand("cmd_delete");
+  command.resetMark(ev);
 }, 'Cut current region', true);
 
 key.setEditKey('M-n', function () {
-	command.walkInputElement(command.elementsRetrieverTextarea, true, true);
+  command.walkInputElement(command.elementsRetrieverTextarea, true, true);
 }, 'Focus to the next text area');
 
 key.setEditKey('M-p', function () {
-	command.walkInputElement(command.elementsRetrieverTextarea, false, true);
+  command.walkInputElement(command.elementsRetrieverTextarea, false, true);
 }, 'Focus to the previous text area');
 
 key.setCaretKey('C-a', function (ev) {
-	ev.target.ksMarked ? goDoCommand("cmd_selectBeginLine") : goDoCommand("cmd_beginLine");
+  ev.target.ksMarked ? goDoCommand("cmd_selectBeginLine") : goDoCommand("cmd_beginLine");
 }, 'Move caret to the beginning of the line');
 
 key.setCaretKey([['C-e'], ['$'], ['M->'], ['G']], function (ev) {
-	ev.target.ksMarked ? goDoCommand("cmd_selectEndLine") : goDoCommand("cmd_endLine");
+  ev.target.ksMarked ? goDoCommand("cmd_selectEndLine") : goDoCommand("cmd_endLine");
 }, 'Move caret to the end of the line');
 
 key.setCaretKey([['C-n'], ['j']], function (ev) {
-	ev.target.ksMarked ? goDoCommand("cmd_selectLineNext") : goDoCommand("cmd_scrollLineDown");
+  ev.target.ksMarked ? goDoCommand("cmd_selectLineNext") : goDoCommand("cmd_scrollLineDown");
 }, 'Move caret to the next line');
 
 key.setCaretKey([['C-p'], ['k']], function (ev) {
-	ev.target.ksMarked ? goDoCommand("cmd_selectLinePrevious") : goDoCommand("cmd_scrollLineUp");
+  ev.target.ksMarked ? goDoCommand("cmd_selectLinePrevious") : goDoCommand("cmd_scrollLineUp");
 }, 'Move caret to the previous line');
 
 key.setCaretKey([['C-f'], ['l']], function (ev) {
-	ev.target.ksMarked ? goDoCommand("cmd_selectCharNext") : goDoCommand("cmd_scrollRight");
+  ev.target.ksMarked ? goDoCommand("cmd_selectCharNext") : goDoCommand("cmd_scrollRight");
 }, 'Move caret to the right');
 
 key.setCaretKey([['C-b'], ['h'], ['C-h']], function (ev) {
-	ev.target.ksMarked ? goDoCommand("cmd_selectCharPrevious") : goDoCommand("cmd_scrollLeft");
+  ev.target.ksMarked ? goDoCommand("cmd_selectCharPrevious") : goDoCommand("cmd_scrollLeft");
 }, 'Move caret to the left');
 
 key.setCaretKey([['M-f'], ['w']], function (ev) {
-	ev.target.ksMarked ? goDoCommand("cmd_selectWordNext") : goDoCommand("cmd_wordNext");
+  ev.target.ksMarked ? goDoCommand("cmd_selectWordNext") : goDoCommand("cmd_wordNext");
 }, 'Move caret to the right by word');
 
 key.setCaretKey([['M-b'], ['W']], function (ev) {
-	ev.target.ksMarked ? goDoCommand("cmd_selectWordPrevious") : goDoCommand("cmd_wordPrevious");
+  ev.target.ksMarked ? goDoCommand("cmd_selectWordPrevious") : goDoCommand("cmd_wordPrevious");
 }, 'Move caret to the left by word');
 
 key.setCaretKey([['C-v'], ['SPC']], function (ev) {
-	ev.target.ksMarked ? goDoCommand("cmd_selectPageNext") : goDoCommand("cmd_movePageDown");
+  ev.target.ksMarked ? goDoCommand("cmd_selectPageNext") : goDoCommand("cmd_movePageDown");
 }, 'Move caret down by page');
 
 key.setCaretKey([['M-v'], ['b']], function (ev) {
-	ev.target.ksMarked ? goDoCommand("cmd_selectPagePrevious") : goDoCommand("cmd_movePageUp");
+  ev.target.ksMarked ? goDoCommand("cmd_selectPagePrevious") : goDoCommand("cmd_movePageUp");
 }, 'Move caret up by page');
 
 key.setCaretKey('M-<', function (ev) {
-	ev.target.ksMarked ? goDoCommand("cmd_selectTop") : goDoCommand("cmd_scrollTop");
+  ev.target.ksMarked ? goDoCommand("cmd_selectTop") : goDoCommand("cmd_scrollTop");
 }, 'Move caret to the top of the page');
 
 key.setCaretKey('M->', function (ev) {
-	ev.target.ksMarked ? goDoCommand("cmd_selectBottom") : goDoCommand("cmd_scrollBottom");
+  ev.target.ksMarked ? goDoCommand("cmd_selectBottom") : goDoCommand("cmd_scrollBottom");
 }, 'Move caret to the bottom of the page');
 
 key.setCaretKey('J', function () {
-	util.getSelectionController().scrollLine(true);
+  util.getSelectionController().scrollLine(true);
 }, 'Scroll line down');
 
 key.setCaretKey('K', function () {
-	util.getSelectionController().scrollLine(false);
+  util.getSelectionController().scrollLine(false);
 }, 'Scroll line up');
 
 key.setCaretKey(',', function () {
-	util.getSelectionController().scrollHorizontal(true);
-	goDoCommand("cmd_scrollLeft");
+  util.getSelectionController().scrollHorizontal(true);
+  goDoCommand("cmd_scrollLeft");
 }, 'Scroll left');
 
 key.setCaretKey('.', function () {
-	goDoCommand("cmd_scrollRight");
-	util.getSelectionController().scrollHorizontal(false);
+  goDoCommand("cmd_scrollRight");
+  util.getSelectionController().scrollHorizontal(false);
 }, 'Scroll right');
 
 key.setCaretKey('z', function (ev) {
-	command.recenter(ev);
+  command.recenter(ev);
 }, 'Scroll to the cursor position');
 
 key.setCaretKey([['C-SPC'], ['C-@']], function (ev) {
-	command.setMark(ev);
+  command.setMark(ev);
 }, 'Set the mark', true);
 
 key.setCaretKey(':', function (ev, arg) {
-	shell.input(null, arg);
+  shell.input(null, arg);
 }, 'List and execute commands', true);
 
 key.setCaretKey('R', function () {
-	BrowserReload();
+  BrowserReload();
 }, 'Reload the page', true);
 
 key.setCaretKey('B', function () {
-	BrowserBack();
+  BrowserBack();
 }, 'Back');
 
 key.setCaretKey('F', function () {
-	BrowserForward();
+  BrowserForward();
 }, 'Forward');
 
 key.setCaretKey(['C-x', 'h'], function () {
-	goDoCommand("cmd_selectAll");
+  goDoCommand("cmd_selectAll");
 }, 'Select all', true);
 
 key.setCaretKey('f', function () {
-	command.focusElement(command.elementsRetrieverTextarea, 0);
+  command.focusElement(command.elementsRetrieverTextarea, 0);
 }, 'Focus to the first textarea', true);
 
 key.setCaretKey('M-p', function () {
-	command.walkInputElement(command.elementsRetrieverButton, true, true);
+  command.walkInputElement(command.elementsRetrieverButton, true, true);
 }, 'Focus to the next button');
 
 key.setCaretKey('M-n', function () {
-	command.walkInputElement(command.elementsRetrieverButton, false, true);
+  command.walkInputElement(command.elementsRetrieverButton, false, true);
 }, 'Focus to the previous button');
+
+key.setViewKey('H', function () {
+    if (gBrowser.mCurrentTab.previousSibling) {
+        gBrowser.moveTabTo(gBrowser.mCurrentTab, gBrowser.mCurrentTab._tPos - 1);
+    } else {
+        gBrowser.moveTabTo(gBrowser.mCurrentTab, gBrowser.mTabContainer.childNodes.length - 1);
+    }
+}, 'Shift selected tab right');
+
+key.setViewKey('L', function () {
+    if (gBrowser.mCurrentTab.nextSibling) {
+        gBrowser.moveTabTo(gBrowser.mCurrentTab, gBrowser.mCurrentTab._tPos + 1);
+    } else {
+        gBrowser.moveTabTo(gBrowser.mCurrentTab, 0);
+    }
+}, 'Shift selected tab left');
