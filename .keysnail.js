@@ -74,7 +74,7 @@ key.setGlobalKey(["C-c", "C-T"],
                    ext.exec("twitter-client-tweet-this-page", arg);
                  }, "Tweet with the title and URL of this page", true);
 
-key.setGlobalKey(["C-x", "b"],
+key.setGlobalKey(["C-j", "b"],
                  function (ev, arg) {
                    ext.exec("tanything", arg);
                  }, "Tanyting buffer switching", true);
@@ -243,7 +243,7 @@ key.setGlobalKey(['C-x', 's'], function () {
   command.focusElement(command.elementsRetrieverButton, 0);
 }, 'Focus to the first button', true);
 
-key.setGlobalKey(['C-x', 'k'], function (ev) {
+key.setGlobalKey(['C-j', 'k'], function (ev) {
   BrowserCloseTabOrWindow();
 }, 'Close tab / window');
 
@@ -372,7 +372,7 @@ key.setGlobalKey('C-F', function () {
   BrowserForward();
 }, 'Forward');
 
-key.setViewKey(['C-x', 'h'], function () {
+key.setViewKey(['C-j', 'h'], function () {
   goDoCommand("cmd_selectAll");
 }, 'Select all', true);
 
@@ -388,11 +388,11 @@ key.setViewKey('M-n', function () {
   command.walkInputElement(command.elementsRetrieverButton, false, true);
 }, 'Focus to the previous button');
 
-key.setEditKey(['C-x', 'h'], function (ev) {
+key.setEditKey(['C-j', 'h'], function (ev) {
   command.selectAll(ev);
 }, 'Select whole text', true);
 
-key.setEditKey([['C-x', 'u'], ['C-/']], function () {
+key.setEditKey([['C-j', 'u'], ['C-/']], function () {
   display.echoStatusBar("Undo!", 2000);
   goDoCommand("cmd_undo");
 }, 'Undo');
@@ -627,7 +627,7 @@ key.setCaretKey('F', function () {
   BrowserForward();
 }, 'Forward');
 
-key.setCaretKey(['C-x', 'h'], function () {
+key.setCaretKey(['C-j', 'h'], function () {
   goDoCommand("cmd_selectAll");
 }, 'Select all', true);
 
