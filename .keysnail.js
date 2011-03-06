@@ -235,7 +235,7 @@ key.setGlobalKey(['C-j', 'l'], function () {
   command.focusToById("urlbar");
 }, 'Focus to the location bar', true);
 
-key.setGlobalKey('C-S', function () {
+key.setGlobalKey('M-s', function () {
   command.focusToById("searchbar");
 }, 'Focus to the search bar', true);
 
