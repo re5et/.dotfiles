@@ -348,11 +348,11 @@ key.setViewKey([['M->'], ['G']], function () {
   goDoCommand("cmd_scrollBottom");
 }, 'Scroll to the bottom of the page', true);
 
-key.setViewKey('l', function () {
+key.setViewKey('M-l', function () {
   getBrowser().mTabContainer.advanceSelectedTab(1, true);
 }, 'Select next tab');
 
-key.setViewKey('h', function () {
+key.setViewKey('M-h', function () {
   getBrowser().mTabContainer.advanceSelectedTab(-1, true);
 }, 'Select previous tab');
 
