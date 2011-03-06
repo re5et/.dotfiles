@@ -231,19 +231,19 @@ key.setGlobalKey('C-m', function (ev) {
   key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_RETURN, true);
 }, 'Generate the return key code');
 
-key.setGlobalKey(['C-x', 'l'], function () {
+key.setGlobalKey(['C-j', 'l'], function () {
   command.focusToById("urlbar");
 }, 'Focus to the location bar', true);
 
-key.setGlobalKey(['C-x', 'g'], function () {
+key.setGlobalKey(['C-j', 'g'], function () {
   command.focusToById("searchbar");
 }, 'Focus to the search bar', true);
 
-key.setGlobalKey(['C-x', 't'], function () {
+key.setGlobalKey(['C-j', 't'], function () {
   command.focusElement(command.elementsRetrieverTextarea, 0);
 }, 'Focus to the first textarea', true);
 
-key.setGlobalKey(['C-x', 's'], function () {
+key.setGlobalKey(['C-j', 's'], function () {
   command.focusElement(command.elementsRetrieverButton, 0);
 }, 'Focus to the first button', true);
 
@@ -255,31 +255,31 @@ key.setGlobalKey('C-W', function (ev) {
   BrowserCloseTabOrWindow();
 }, 'Close tab / window');
 
-// key.setGlobalKey(['C-x', 'K'], function () {
+// key.setGlobalKey(['C-j', 'K'], function () {
 //     closeWindow(true);
 // }, 'Close the window');
 
-key.setGlobalKey(['C-x', 'n'], function (ev) {
+key.setGlobalKey(['C-j', 'n'], function (ev) {
   OpenBrowserWindow();
 }, 'Open new window');
 
-key.setGlobalKey(['C-x', 'C-c'], function (ev) {
+key.setGlobalKey(['C-j', 'C-c'], function (ev) {
   goQuitApplication();
 }, 'Exit Firefox', true);
 
-key.setGlobalKey(['C-x', 'o'], function (ev, arg) {
+key.setGlobalKey(['C-j', 'o'], function (ev, arg) {
   command.focusOtherFrame(arg);
 }, 'Select next frame');
 
-key.setGlobalKey(['C-x', '1'], function (ev) {
+key.setGlobalKey(['C-j', '1'], function (ev) {
   window.loadURI(ev.target.ownerDocument.location.href);
 }, 'Show current frame only', true);
 
-key.setGlobalKey(['C-x', 'C-f'], function () {
+key.setGlobalKey(['C-j', 'C-f'], function () {
   BrowserOpenFileWindow();
 }, 'Open the local file', true);
 
-key.setGlobalKey(['C-x', 'C-s'], function () {
+key.setGlobalKey(['C-j', 'C-s'], function () {
   saveDocument(window.content.document);
 }, 'Save current page to the file', true);
 
@@ -401,23 +401,23 @@ key.setEditKey([['C-j', 'u'], ['C-/']], function () {
   goDoCommand("cmd_undo");
 }, 'Undo');
 
-key.setEditKey(['C-x', 'r', 'd'], function (ev, arg) {
+key.setEditKey(['C-j', 'r', 'd'], function (ev, arg) {
   command.replaceRectangle(ev.originalTarget, "", false, !arg);
 }, 'Delete text in the region-rectangle', true);
 
-key.setEditKey(['C-x', 'r', 't'], function (ev) {
+key.setEditKey(['C-j', 'r', 't'], function (ev) {
   prompt.read("String rectangle: ", function (aStr, aInput) {command.replaceRectangle(aInput, aStr);}, ev.originalTarget);
 }, 'Replace text in the region-rectangle with user inputted string', true);
 
-key.setEditKey(['C-x', 'r', 'o'], function (ev) {
+key.setEditKey(['C-j', 'r', 'o'], function (ev) {
   command.openRectangle(ev.originalTarget);
 }, 'Blank out the region-rectangle, shifting text right', true);
 
-key.setEditKey(['C-x', 'r', 'k'], function (ev, arg) {
+key.setEditKey(['C-j', 'r', 'k'], function (ev, arg) {
   command.kill.buffer = command.killRectangle(ev.originalTarget, !arg);
 }, 'Delete the region-rectangle and save it as the last killed one', true);
 
-key.setEditKey(['C-x', 'r', 'y'], function (ev) {
+key.setEditKey(['C-j', 'r', 'y'], function (ev) {
   command.yankRectangle(ev.originalTarget, command.kill.buffer);
 }, 'Yank the last killed rectangle with upper left corner at point', true);
 
