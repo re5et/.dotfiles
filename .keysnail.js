@@ -47,7 +47,7 @@ plugins.options["hok.hint_color_focused"] = 'rgba(255, 0, 255, 1)';
 plugins.options["hok.hint_color_candidates"] = 'rgba(255, 100, 255, 1)';
 
 key.setGlobalKey('C-j', function(){
-	return false;
+  return false;
 }, 'stop C-j from entering search so it can be used for prefixing.');
 
 key.setGlobalKey('C-,', function (ev, arg) {
@@ -160,6 +160,30 @@ key.setViewKey('<', function (ev, arg) {
     content.location.href = digit[1] + (digit[2] ||"").slice(next.toString().length - len) + next + (digit[4] ||"");
   }
 }, 'Decrement last digit in the URL');
+
+key.setGlobalKey('M-H', function () {
+  if (gBrowser.mCurrentTab.previousSibling) {
+    gBrowser.moveTabTo(gBrowser.mCurrentTab, gBrowser.mCurrentTab._tPos - 1);
+  } else {
+    gBrowser.moveTabTo(gBrowser.mCurrentTab, gBrowser.mTabContainer.childNodes.length - 1);
+  }
+}, 'Shift selected tab right');
+
+key.setGlobalKey('M-L', function () {
+  if (gBrowser.mCurrentTab.nextSibling) {
+    gBrowser.moveTabTo(gBrowser.mCurrentTab, gBrowser.mCurrentTab._tPos + 1);
+  } else {
+    gBrowser.moveTabTo(gBrowser.mCurrentTab, 0);
+  }
+}, 'Shift selected tab left');
+
+key.setGlobalKey('M-l', function () {
+  getBrowser().mTabContainer.advanceSelectedTab(1, true);
+}, 'Select next tab');
+
+key.setGlobalKey('M-h', function () {
+  getBrowser().mTabContainer.advanceSelectedTab(-1, true);
+}, 'Select previous tab');
 
 // // stop searching by hit Enter on search box
 // if(gFindBar != undefined){
@@ -307,15 +331,6 @@ key.setGlobalKey(['C-c', 'C-c', 'C-c'], function () {
   command.clearConsole();
 }, 'Clear Javascript console', true);
 
-key.setGlobalKey('C-M-l', function () {
-  getBrowser().mTabContainer.advanceSelectedTab(1, true);
-}, 'Select next tab');
-
-key.setGlobalKey('C-M-h', function () {
-  getBrowser().mTabContainer.advanceSelectedTab(-1, true);
-}, 'Select previous tab');
-
-
 key.setGlobalKey('C-M-g', function (ev, arg) {
   window.location = 'http://gmail.com'
 }, 'Jump to Gmail', true);
@@ -351,14 +366,6 @@ key.setViewKey([['M-<'], ['g']], function () {
 key.setViewKey([['M->'], ['G']], function () {
   goDoCommand("cmd_scrollBottom");
 }, 'Scroll to the bottom of the page', true);
-
-key.setViewKey('M-l', function () {
-  getBrowser().mTabContainer.advanceSelectedTab(1, true);
-}, 'Select next tab');
-
-key.setViewKey('M-h', function () {
-  getBrowser().mTabContainer.advanceSelectedTab(-1, true);
-}, 'Select previous tab');
 
 key.setViewKey(':', function (ev, arg) {
   shell.input(null, arg);
@@ -647,18 +654,72 @@ key.setCaretKey('M-n', function () {
   command.walkInputElement(command.elementsRetrieverButton, false, true);
 }, 'Focus to the previous button');
 
-key.setViewKey('H', function () {
-  if (gBrowser.mCurrentTab.previousSibling) {
-    gBrowser.moveTabTo(gBrowser.mCurrentTab, gBrowser.mCurrentTab._tPos - 1);
-  } else {
-    gBrowser.moveTabTo(gBrowser.mCurrentTab, gBrowser.mTabContainer.childNodes.length - 1);
-  }
-}, 'Shift selected tab right');
 
-key.setViewKey('L', function () {
-  if (gBrowser.mCurrentTab.nextSibling) {
-    gBrowser.moveTabTo(gBrowser.mCurrentTab, gBrowser.mCurrentTab._tPos + 1);
-  } else {
-    gBrowser.moveTabTo(gBrowser.mCurrentTab, 0);
+// var googleReaderFullScreenViewport = new elementToggleFullScreen('#viewer-container');
+// key.setViewKey(['C-c', 'f', 'g'], function (ev, arg) {
+//   googleReaderFullScreenViewport.toggle();
+// }, "Toggle fullscreen Google Reader viewport");
+
+
+var elementToggleFullScreen = function(options){
+  this.full = false;
+  this.toToggle = content.document.querySelector(options.selector);
+  this.urlMatch = options.urlMatch;
+  this.fullScreenStyles = {
+    position: 'fixed',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    zIndex: 99999,
+    width: '100%',
+    height: '100%'
+  };
+  this.originalStyles = {};
+}
+
+elementToggleFullScreen.prototype.setFullStyles = function(){
+}
+
+elementToggleFullScreen.prototype.setOriginalStyles = function(){
+
+}
+
+elementToggleFullScreen.prototype.toggle = function(){
+  if(this.full){
+    display.prettyPrint(this.selector + ' unfullscreened');
+    for(prop in this.originalStyles){
+      this.toToggle.style[prop] = this.originalStyles[prop];
+    }
   }
-}, 'Shift selected tab left');
+  else{
+    display.prettyPrint(this.selector + ' fullscreened');
+    for(prop in this.fullScreenStyles){
+      this.originalStyles[prop] = this.toToggle.style[prop];
+      this.toToggle.style[prop] = this.fullScreenStyles[prop];
+    }
+  }
+}
+
+elementToggleFullScreen.prototype.matches = function(){
+  return content.location.href.toString().match(this.urlMatch).length > 0
+}
+
+ext.add('toggle-element', function(){
+  var togglers = [
+    new elementToggleFullScreen({
+      'selector': '#viewer-container',
+      'urlMatch': /http:\/\/www\.google\.com\/reader/
+    })
+  ];
+
+  for(i=0;i<togglers.length;i++){
+    if(togglers[i].matches()){
+      togglers[i].toggle();
+    }
+  }
+});
+
+key.setGlobalKey('C-o', function(){
+  ext.exec('toggle-element');
+})
