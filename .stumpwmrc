@@ -1,66 +1,63 @@
-;; -*-Lisp-*-
+;; ;; -*-Lisp-*-
 
 (in-package :stumpwm)
 
-;; shell program used by `run-shell-commnd' (`sh' by default, which is *not*
-;; `bash')
-(setq *shell-program* (stumpwm::getenv "SHELL"))  ; `getenv' is not exporated
+(setq *shell-program* (stumpwm::getenv "SHELL"))
 
 (stumpwm:set-prefix-key (stumpwm:kbd "C-h"))
 
-;; turn on the modeline
-(if (not (head-mode-line (current-head)))
-    (toggle-mode-line (current-screen) (current-head)))
-;; A head is a physical monitor. A screen is a section of video memory
-;; that heads are mapped on to. When using xinerama you generally have
-;; 1 screen and many heads. When not using xinerama each screen is a
-;; physical monitor so you have many screens with only one head on them.
+;; ;; turn on the modeline
+;; (if (not (head-mode-line (current-head)))
+;;     (toggle-mode-line (current-screen) (current-head)))
+;; ;; A head is a physical monitor. A screen is a section of video memory
+;; ;; that heads are mapped on to. When using xinerama you generally have
+;; ;; 1 screen and many heads. When not using xinerama each screen is a
+;; ;; physical monitor so you have many screens with only one head on them.
 
-;; (load "/home/atom/stumpwm/contrib/mem.lisp")
-;; (load "/home/atom/stumpwm/contrib/net.lisp")
-;; (load "/home/atom/stumpwm/contrib/battery.lisp")
-;; (load "/home/atom/stumpwm/contrib/disk.lisp")
-;; (load "/home/atom/stumpwm/contrib/cpu.lisp")
+;; ;; (load "/home/atom/stumpwm/contrib/mem.lisp")
+;; ;; (load "/home/atom/stumpwm/contrib/net.lisp")
+;; ;; (load "/home/atom/stumpwm/contrib/battery.lisp")
+;; ;; (load "/home/atom/stumpwm/contrib/disk.lisp")
+;; ;; (load "/home/atom/stumpwm/contrib/cpu.lisp")
 
+(setf *message-window-gravity* :center
+      *input-window-gravity* :bottom-left)
+;; ;; modeline background color
+;; (setf
+;;
+;;  *mouse-focus-policy* :ignore
+;;  *message-window-gravity* :top-left
+;;  *mode-line-timeout* 1
+;;  *mode-line-pad-y* 0
+;;  *mode-line-background-color* "black"
+;;  *mode-line-foreground-color* "gray20"
+;;  *mode-line-border-color* "gray20"
+;;  *screen-mode-line-format* (list
+;;                             '(:eval (run-shell-command "~/bin/modeline" t))
+;;                             " ^B^5*%D^n ^B^3*%c^n ^B^6*%M%N^n ^B^3*%l^n %W"
+;;                             ))
 
-;; modeline background color
-(setf
- *input-window-gravity* :top-left
- *mouse-focus-policy* :ignore
- *message-window-gravity* :top-left
- *mode-line-timeout* 1
- *mode-line-pad-y* 0
- *mode-line-background-color* "black"
- *mode-line-foreground-color* "gray20"
- *mode-line-border-color* "gray20"
- *screen-mode-line-format* (list
-                            '(:eval (run-shell-command "~/bin/modeline" t))
-                            " ^B^5*%D^n ^B^3*%c^n ^B^6*%M%N^n ^B^3*%l^n %W"
-                            ))
+;; (set-focus-color "blue")
 
-(set-focus-color "blue")
+;; ;; emacs style splitting
+;; (define-key *root-map* (kbd "0") "remove")
+;; (define-key *root-map* (kbd "1") "only")
+;; (define-key *root-map* (kbd "2") "vsplit")
+;; (define-key *root-map* (kbd "3") "hsplit")
 
-;; emacs style splitting
-(define-key *root-map* (kbd "0") "remove")
-(define-key *root-map* (kbd "1") "only")
-(define-key *root-map* (kbd "2") "vsplit")
-(define-key *root-map* (kbd "3") "hsplit")
-
-;; new sakura terminal
 (define-key *root-map* (kbd "t") "exec sakura")
 
 ;; top level commands
 (define-key *top-map* (kbd "C-S-RET") "fullscreen")
-(define-key *top-map* (kbd "C-M-RET") "exec xscreensaver-command -lock")
+(define-key *top-map* (kbd "C-M-RET") "exec gnome-screensaver-command -l")
 
 (define-key *top-map* (kbd "C-:") "pull-hidden-next")
 (define-key *top-map* (kbd "C-\"") "pull-hidden-previous")
 (define-key *top-map* (kbd "C-;") "next")
 (define-key *top-map* (kbd "C-'") "prev")
 (define-key *top-map* (kbd "C-M-;") "colon")
-
-(define-key *top-map* (kbd "C-M-Left") "move-window left")
-(define-key *top-map* (kbd "C-M-Right") "move-window right")
+;; (define-key *top-map* (kbd "C-M-Left") "move-window left")
+;; (define-key *top-map* (kbd "C-M-Right") "move-window right")
 
 ;; volume control
 (define-key *top-map* (kbd "C-Up") "exec amixer -c 0 set Master 4dB+")
@@ -79,16 +76,13 @@
 (define-key *root-map* (kbd "m") '*mpc-bindings*)
 
 ;; make my default groups
-(run-commands "gnew main"
-              "gnew other"
-              "gnew vms"
-              "gnew trash")
+(run-commands "gnew trash"
+              "gnew vms")
 
 ;; get around groups easier
-(define-key *top-map* (kbd "C-1") "gselect main")
-(define-key *top-map* (kbd "C-2") "gselect other")
+(define-key *top-map* (kbd "C-1") "gselect Defaul")
+(define-key *top-map* (kbd "C-2") "gselect trash")
 (define-key *top-map* (kbd "C-3") "gselect vms")
-(define-key *top-map* (kbd "C-4") "gselect trash")
 
 (defcommand firefox () ()
   "Start Firefox or switch to it, if it is already running."
@@ -100,33 +94,38 @@
   (run-or-raise "chromium-browser" '(:class "Chromium-browser")))
 (define-key *root-map* (kbd "c") "chromium")
 
-(defcommand emacs () ()
-  "Start Emacs or switch to it, if it is already running."
-  (run-or-raise "emacs" '(:class "Emacs")))
-(define-key *root-map* (kbd "e") "emacs")
+;; (defcommand emacs () ()
+;;   "Start Emacs or switch to it, if it is already running."
+;;   (run-or-raise "emacs" '(:class "Emacs")))
+;; (define-key *root-map* (kbd "e") "emacs")
 
 (defcommand tmux () ()
   "Start tmux or switch to it, if it is already running."
-  (run-or-raise "sakura --class=tmux -e tmux" '(:class "tmux")))
+  (run-or-raise "sakura --class=tmux -e 'tmux new-session -n main'" '(:class "tmux")))
 (define-key *root-map* (kbd "s") "tmux")
 
-;; display the key sequence in progress
-(defun key-press-hook (key key-seq cmd)
-  (declare (ignore key))
-  (unless (eq *top-map* *resize-map*)
-    (let ((*message-window-gravity* :bottom-left))
-      (message "~a" (print-key-seq (reverse key-seq))))
-    (when (stringp cmd))))
-(defmacro replace-hook (hook fn)
-  `(remove-hook ,hook ,fn)
-  `(add-hook ,hook ,fn))
+;; (defcommand gitg () ()
+;;   "Start gitg or switch to it, if it is already running."
+;;   (run-or-raise "gitg" '(:class "Gitg")))
+;; (define-key *root-map* (kbd "d") "gitg")
 
-(replace-hook *key-press-hook* 'key-press-hook)
+;; ;; display the key sequence in progress
+;; (defun key-press-hook (key key-seq cmd)
+;;   (declare (ignore key))
+;;   (unless (eq *top-map* *resize-map*)
+;;     (let ((*message-window-gravity* :bottom-left))
+;;       (message "~a" (print-key-seq (reverse key-seq))))
+;;     (when (stringp cmd))))
+;; (defmacro replace-hook (hook fn)
+;;   `(remove-hook ,hook ,fn)
+;;   `(add-hook ,hook ,fn))
 
-;; (defun raise-urgent-window-hook (target)
-;;   (gselect (window-group target))
-;;   (really-raise-window target))
-;; (add-hook *urgent-window-hook* 'raise-urgent-window-hook)
+;; (replace-hook *key-press-hook* 'key-press-hook)
+
+;; ;; (defun raise-urgent-window-hook (target)
+;; ;;   (gselect (window-group target))
+;; ;;   (really-raise-window target))
+;; ;; (add-hook *urgent-window-hook* 'raise-urgent-window-hook)
 
 (defvar *mpc-bindings*
   (let ((m (stumpwm:make-sparse-keymap)))
@@ -134,14 +133,16 @@
     m ; NOTE: this is important
     ))
 
-(defcommand yank () ()
-  (window-send-string (get-x-selection)))
-(define-key *root-map* (kbd "y") "yank")
-;; (let ((text (get-x-selection 1)))
-;;  (and text (window-send-string text))))
+;; (defcommand yank () ()
+;;   (window-send-string (get-x-selection)))
+;; (define-key *root-map* (kbd "y") "yank")
+;; ;; (let ((text (get-x-selection 1)))
+;; ;;  (and text (window-send-string text))))
 
 (firefox)
 (emacs)
 (tmux)
-(run-shell-command "chromium-browser")
-(run-shell-command "xscreensaver-command -exit; killall xscreensaver 2>/dev/null; xscreensaver")
+(chromium)
+;; (run-shell-command "gnome-appearance-properties")
+;; ;; (run-shell-command "chromium-browser")
+;; ;; (run-shell-command "xscreensaver-command -exit; killall xscreensaver 2>/dev/null; xscreensaver")
