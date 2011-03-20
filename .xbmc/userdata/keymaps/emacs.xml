@@ -1,0 +1,153 @@
+<keymap>
+  <global>
+    <keyboard>
+      <b mod="ctrl">Left</b><!-- emacs! -->
+      <f mod="ctrl">Right</f><!-- emacs! -->
+      <p mod="ctrl">Up</p><!-- emacs! -->
+      <n mod="ctrl">Down</n><!-- emacs! -->
+      <comma mod="alt,shift">FirstPage</comma><!-- emacs! -->
+      <period mod="alt,shift">LastPage</period><!-- emacs! -->
+      <v mod="alt">PageUp</v><!-- emacs! -->
+      <v mod="ctrl">PageDown</v><!-- emacs! -->
+      <g mod="ctrl">PreviousMenu</g><!-- emacs! -->
+    </keyboard>
+  </global>
+  <FullscreenVideo>
+    <keyboard>
+      <f mod="alt">StepForward</f><!-- emacs! -->
+      <b mod="alt">StepBack</b><!-- emacs! -->
+      <b mod="ctrl">SmallStepBack</b><!-- emacs! -->
+      <f mod="ctrl,alt">BigStepForward</f><!-- emacs! -->
+      <b mod="ctrl,alt">BigStepBack</b><!-- emacs! -->
+      <n mod="ctrl">BigStepForward</n><!-- emacs! -->
+      <p mod="ctrl">BigStepForward</p><!-- emacs! -->
+      <x mod="alt">OSD</x><!-- emacs! -->
+      <g mod="ctrl">Fullscreen</g><!-- emacs! -->
+    </keyboard>
+  </FullscreenVideo>
+  <FullscreenInfo>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </FullscreenInfo>
+  <PlayerControls>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </PlayerControls>
+  <Visualisation>
+    <keyboard>
+      <g mod="ctrl">FullScreen</g><!-- emacs! -->
+    </keyboard>
+  </Visualisation>
+  <MusicOSD>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </MusicOSD>
+  <VisualisationSettings>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </VisualisationSettings>
+  <VisualisationPresetList>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </VisualisationPresetList>
+  <SelectDialog>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </SelectDialog>
+  <VideoOSD>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </VideoOSD>
+  <VideoMenu>
+    <keyboard>
+      <g mod="ctrl">Fullscreen</g><!-- emacs! -->
+    </keyboard>
+  </VideoMenu>
+  <OSDVideoSettings>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </OSDVideoSettings>
+  <OSDAudioSettings>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </OSDAudioSettings>
+  <VideoBookmarks>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </VideoBookmarks>
+  <ContextMenu>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </ContextMenu>
+  <FileStackingDialog>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </FileStackingDialog>
+  <shutdownmenu>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </shutdownmenu>
+  <MusicInformation>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </MusicInformation>
+  <MovieInformation>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </MovieInformation>
+  <AddonInformation>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </AddonInformation>
+  <AddonSettings>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </AddonSettings>
+  <TextViewer>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </TextViewer>
+  <LockSettings>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </LockSettings>
+  <ProfileSettings>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </ProfileSettings>
+  <PictureInfo>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </PictureInfo>
+  <Teletext>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </Teletext>
+  <Favourites>
+    <keyboard>
+      <g mod="ctrl">Close</g><!-- emacs! -->
+    </keyboard>
+  </Favourites>
+</keymap>
