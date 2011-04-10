@@ -22,17 +22,23 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
+source /etc/profile.d/autojump.zsh
+
 EDITOR="emacsclient -c"
 BROWSER=/usr/bin/firefox
 PATH=$PATH:~/bin
 
 # aliases
 alias scp='scp -r'
-alias rc='rails c'
-alias rdbc='rails dbconsole'
-alias rs='rails s'
-alias rg='rails g'
+
+alias gp='ps aux | grep'
+alias gk='grepkill'
+
 alias be='bundle exec'
+alias rc='be rails c'
+alias rdbc='be rails dbconsole'
+alias rs='be rails s'
+alias rg='be rails g'
 # for rvm
 unsetopt auto_name_dirs
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
