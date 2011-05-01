@@ -86,7 +86,7 @@
 
 (defcommand firefox () ()
   "Start Firefox or switch to it, if it is already running."
-  (run-or-raise "firefox-4.0" '(:role "browser")))
+  (run-or-raise "firefox" '(:role "browser")))
 (define-key *root-map* (kbd "f") "firefox")
 
 (defcommand chromium () ()
@@ -94,15 +94,15 @@
   (run-or-raise "chromium-browser" '(:class "Chromium-browser")))
 (define-key *root-map* (kbd "c") "chromium")
 
-;; (defcommand emacs () ()
-;;   "Start Emacs or switch to it, if it is already running."
-;;   (run-or-raise "emacs" '(:class "Emacs")))
-;; (define-key *root-map* (kbd "e") "emacs")
-
 (defcommand tmux () ()
   "Start tmux or switch to it, if it is already running."
   (run-or-raise "sakura --class=tmux -e 'tmux new-session -n main'" '(:class "tmux")))
 (define-key *root-map* (kbd "s") "tmux")
+
+(defcommand xbmc () ()
+  "Start xbmc or switch to it, if it is already running."
+  (run-or-raise "xbmc.bin" '(:class "xbmc.bin")))
+(define-key *root-map* (kbd "d") "xbmc")
 
 ;; (defcommand gitg () ()
 ;;   "Start gitg or switch to it, if it is already running."
