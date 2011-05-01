@@ -8,3 +8,6 @@
 .config/*
 !.config/user-*
 !.config/sakura*
+.xbmc/addons*
+.xbmc/temp*
+.xbmc/userdata*
