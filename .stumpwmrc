@@ -46,18 +46,18 @@
 ;; (define-key *root-map* (kbd "3") "hsplit")
 
 (define-key *root-map* (kbd "t") "exec sakura")
+(define-key *root-map* (kbd "S-Left") "move-window left")
+(define-key *root-map* (kbd "S-Right") "move-window right")
+(define-key *root-map* (kbd "!") "exec dmenu_run -i -b -nb '#000' -nf '#0F0' -sb '#111' -sf '#F0F' -fn '-*-helvetica-bold-r-*-*-20-*-*-*-*-*-*-*'")
 
 ;; top level commands
 (define-key *top-map* (kbd "C-S-RET") "fullscreen")
 (define-key *top-map* (kbd "C-M-RET") "exec gnome-screensaver-command -l")
-
 (define-key *top-map* (kbd "C-:") "pull-hidden-next")
 (define-key *top-map* (kbd "C-\"") "pull-hidden-previous")
 (define-key *top-map* (kbd "C-;") "next")
 (define-key *top-map* (kbd "C-'") "prev")
 (define-key *top-map* (kbd "C-M-;") "colon")
-;; (define-key *top-map* (kbd "C-M-Left") "move-window left")
-;; (define-key *top-map* (kbd "C-M-Right") "move-window right")
 
 ;; volume control
 (define-key *top-map* (kbd "C-Up") "exec amixer -c 0 set Master 4dB+")
@@ -75,14 +75,18 @@
     ))
 (define-key *root-map* (kbd "m") '*mpc-bindings*)
 
+(defvar *mpc-bindings*
+  (let ((m (stumpwm:make-sparse-keymap)))
+    (stumpwm:define-key m (stumpwm:kbd "p") "exec mpc toggle")
+    m ; NOTE: this is important
+    ))
+
 ;; make my default groups
-(run-commands "gnew trash"
-              "gnew vms")
+(run-commands "gnew trash")
 
 ;; get around groups easier
 (define-key *top-map* (kbd "C-1") "gselect Defaul")
 (define-key *top-map* (kbd "C-2") "gselect trash")
-(define-key *top-map* (kbd "C-3") "gselect vms")
 
 (defcommand firefox () ()
   "Start Firefox or switch to it, if it is already running."
@@ -104,34 +108,11 @@
   (run-or-raise "xbmc.bin" '(:class "xbmc.bin")))
 (define-key *root-map* (kbd "d") "xbmc")
 
-;; (defcommand gitg () ()
-;;   "Start gitg or switch to it, if it is already running."
-;;   (run-or-raise "gitg" '(:class "Gitg")))
-;; (define-key *root-map* (kbd "d") "gitg")
-
-;; ;; display the key sequence in progress
-;; (defun key-press-hook (key key-seq cmd)
-;;   (declare (ignore key))
-;;   (unless (eq *top-map* *resize-map*)
-;;     (let ((*message-window-gravity* :bottom-left))
-;;       (message "~a" (print-key-seq (reverse key-seq))))
-;;     (when (stringp cmd))))
-;; (defmacro replace-hook (hook fn)
-;;   `(remove-hook ,hook ,fn)
-;;   `(add-hook ,hook ,fn))
-
-;; (replace-hook *key-press-hook* 'key-press-hook)
-
 ;; ;; (defun raise-urgent-window-hook (target)
 ;; ;;   (gselect (window-group target))
 ;; ;;   (really-raise-window target))
 ;; ;; (add-hook *urgent-window-hook* 'raise-urgent-window-hook)
 
-(defvar *mpc-bindings*
-  (let ((m (stumpwm:make-sparse-keymap)))
-    (stumpwm:define-key m (stumpwm:kbd "p") "exec mpc toggle")
-    m ; NOTE: this is important
-    ))
 
 ;; (defcommand yank () ()
 ;;   (window-send-string (get-x-selection)))
@@ -142,7 +123,4 @@
 (firefox)
 (emacs)
 (tmux)
-(chromium)
 ;; (run-shell-command "gnome-appearance-properties")
-;; ;; (run-shell-command "chromium-browser")
-;; ;; (run-shell-command "xscreensaver-command -exit; killall xscreensaver 2>/dev/null; xscreensaver")
