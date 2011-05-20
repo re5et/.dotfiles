@@ -16,7 +16,7 @@ export ZSH_THEME="re5et"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git rails ruby)
+plugins=(git rails3 ruby gem ssh-agent bundler)
 
 source $ZSH/oh-my-zsh.sh
 
