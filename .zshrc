@@ -31,6 +31,9 @@ PATH=$PATH:~/bin
 # aliases
 alias scp='scp -r'
 
+alias l.='l ./*(.)'
+alias l/='l -d ./*(/)'
+
 alias gp='ps aux | grep'
 alias gk='grepkill'
 
