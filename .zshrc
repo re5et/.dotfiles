@@ -42,6 +42,10 @@ alias rc='be rails c'
 alias rdbc='be rails dbconsole'
 alias rs='be rails s'
 alias rg='be rails g'
+
+alias cwip='RAILS_ENV=test rake cucumber:wip'
+alias cok='RAILS_ENV=test rake cucumber:ok'
+
 # for rvm
 unsetopt auto_name_dirs
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
