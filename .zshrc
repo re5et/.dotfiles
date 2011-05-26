@@ -45,6 +45,7 @@ alias rg='be rails g'
 
 alias cwip='RAILS_ENV=test rake cucumber:wip'
 alias cok='RAILS_ENV=test rake cucumber:ok'
+alias cokwip='cok && cwip'
 
 # for rvm
 unsetopt auto_name_dirs
