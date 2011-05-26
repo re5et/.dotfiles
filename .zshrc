@@ -33,6 +33,7 @@ alias scp='scp -r'
 alias l.='l ./*(.)'
 alias l/='l -d ./*(/)'
 alias lm='l --sort time -r'
+alias lc='l | wc -l'
 
 alias gp='ps aux | grep'
 alias gk='grepkill'
@@ -50,3 +51,5 @@ alias cokwip='cok && cwip'
 # for rvm
 unsetopt auto_name_dirs
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
+
+umask 022
