@@ -20,30 +20,27 @@
 ;; ;; (load "/home/atom/stumpwm/contrib/disk.lisp")
 ;; ;; (load "/home/atom/stumpwm/contrib/cpu.lisp")
 
-(setf *message-window-gravity* :center
-      *input-window-gravity* :bottom-left)
-;; ;; modeline background color
-;; (setf
-;;
-;;  *mouse-focus-policy* :ignore
-;;  *message-window-gravity* :top-left
-;;  *mode-line-timeout* 1
-;;  *mode-line-pad-y* 0
-;;  *mode-line-background-color* "black"
-;;  *mode-line-foreground-color* "gray20"
-;;  *mode-line-border-color* "gray20"
-;;  *screen-mode-line-format* (list
-;;                             '(:eval (run-shell-command "~/bin/modeline" t))
-;;                             " ^B^5*%D^n ^B^3*%c^n ^B^6*%M%N^n ^B^3*%l^n %W"
-;;                             ))
+(setf
+ *mouse-focus-policy* :ignore
+ *message-window-gravity* :top-left
+ *input-window-gravity* :bottom-left
+ *mode-line-timeout* 1
+ *mode-line-pad-y* 0
+ *mode-line-background-color* "black"
+ *mode-line-foreground-color* "gray20"
+ *mode-line-border-color* "gray20"
+ *screen-mode-line-format* (list
+                            '(:eval (run-shell-command "~/bin/modeline" t))
+                            "  %W"
+                            ))
 
-;; (set-focus-color "blue")
+(set-focus-color "black")
 
-;; ;; emacs style splitting
-;; (define-key *root-map* (kbd "0") "remove")
-;; (define-key *root-map* (kbd "1") "only")
-;; (define-key *root-map* (kbd "2") "vsplit")
-;; (define-key *root-map* (kbd "3") "hsplit")
+;; emacs style splitting
+(define-key *root-map* (kbd "0") "remove")
+(define-key *root-map* (kbd "1") "only")
+(define-key *root-map* (kbd "2") "vsplit")
+(define-key *root-map* (kbd "3") "hsplit")
 
 (define-key *root-map* (kbd "t") "exec sakura")
 (define-key *root-map* (kbd "S-Left") "move-window left")
@@ -68,6 +65,7 @@
 (defvar *mpc-bindings*
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "p") "exec mpc toggle")
+    (define-key m (kbd "p") "exec mpc toggle")
     (define-key m (kbd "s") "exec mpc stop")
     (define-key m (kbd "f") "exec mpc next")
     (define-key m (kbd "b") "exec mpc prev")
@@ -75,17 +73,12 @@
     ))
 (define-key *root-map* (kbd "m") '*mpc-bindings*)
 
-(defvar *mpc-bindings*
-  (let ((m (stumpwm:make-sparse-keymap)))
-    (stumpwm:define-key m (stumpwm:kbd "p") "exec mpc toggle")
-    m ; NOTE: this is important
-    ))
+(load "/home/atom/stumpwm/contrib/notifications.lisp")
+(define-key *root-map* (kbd "n") '*notifications-map*)
 
-;; make my default groups
-(run-commands "gnew trash")
 
 ;; get around groups easier
-(define-key *top-map* (kbd "C-1") "gselect Defaul")
+(define-key *top-map* (kbd "C-1") "gselect Default")
 (define-key *top-map* (kbd "C-2") "gselect trash")
 
 (defcommand firefox () ()
@@ -98,29 +91,24 @@
   (run-or-raise "chromium-browser" '(:class "Chromium-browser")))
 (define-key *root-map* (kbd "c") "chromium")
 
-(defcommand tmux () ()
-  "Start tmux or switch to it, if it is already running."
-  (run-or-raise "sakura --class=tmux -e 'tmux new-session -n main'" '(:class "tmux")))
-(define-key *root-map* (kbd "s") "tmux")
+(defcommand emacs () ()
+  "Start emacs or switch to it, if it is already running."
+  (run-or-raise "emacs" '(:title "emacs")))
+(define-key *root-map* (kbd "e") "emacs")
+
+(defcommand emux () ()
+  "Start emux or switch to it, if it is already running."
+  (run-or-raise "emacs -q -l ~/.emacs.d/emux-init.el --debug-init" '(:title "emux")))
+(define-key *root-map* (kbd "s") "emux")
 
 (defcommand xbmc () ()
   "Start xbmc or switch to it, if it is already running."
   (run-or-raise "xbmc.bin" '(:class "xbmc.bin")))
 (define-key *root-map* (kbd "d") "xbmc")
 
-;; ;; (defun raise-urgent-window-hook (target)
-;; ;;   (gselect (window-group target))
-;; ;;   (really-raise-window target))
-;; ;; (add-hook *urgent-window-hook* 'raise-urgent-window-hook)
-
-
-;; (defcommand yank () ()
-;;   (window-send-string (get-x-selection)))
-;; (define-key *root-map* (kbd "y") "yank")
-;; ;; (let ((text (get-x-selection 1)))
-;; ;;  (and text (window-send-string text))))
-
 (firefox)
 (emacs)
-(tmux)
-;; (run-shell-command "gnome-appearance-properties")
+(emux)
+
+;; make my default groups
+(run-commands "gnew trash")
