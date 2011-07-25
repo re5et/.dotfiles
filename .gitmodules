@@ -7,3 +7,6 @@
 [submodule "slime"]
   path = .emacs.d/mine/slime
   url = https://github.com/technomancy/slime.git
+[submodule "js2-mode"]
+  path = .emacs.d/mine/js2-mode
+  url = https://github.com/mooz/js2-mode.git
