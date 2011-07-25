@@ -11,3 +11,7 @@
 .xbmc/addons*
 .xbmc/temp*
 .xbmc/userdata*
+/.emacs.d/eshell/history
+/.emacs.d/eshell/lastdir
+/.emacs.d/session.*
+/.emacs.d/ac-comphist.dat
