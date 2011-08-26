@@ -73,8 +73,8 @@
     ))
 (define-key *root-map* (kbd "m") '*mpc-bindings*)
 
-(load "/home/atom/stumpwm/contrib/notifications.lisp")
-(define-key *root-map* (kbd "n") '*notifications-map*)
+;(load "/home/atom/stumpwm/contrib/notifications.lisp")
+;(define-key *root-map* (kbd "n") '*notifications-map*)
 
 
 ;; get around groups easier
