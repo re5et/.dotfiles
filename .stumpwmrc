@@ -61,17 +61,14 @@
 (define-key *top-map* (kbd "C-Down") "exec amixer -c 0 set Master 4dB-")
 
 ;; mpc stuff
-(define-key *root-map* (kbd "C-p") "exec mpc toggle")
-(defvar *mpc-bindings*
-  (let ((m (make-sparse-keymap)))
-    (define-key m (kbd "p") "exec mpc toggle")
-    (define-key m (kbd "p") "exec mpc toggle")
-    (define-key m (kbd "s") "exec mpc stop")
-    (define-key m (kbd "f") "exec mpc next")
-    (define-key m (kbd "b") "exec mpc prev")
-    m ; NOTE: this is important
-    ))
-(define-key *root-map* (kbd "m") '*mpc-bindings*)
+(define-key *root-map* (kbd "C-p") "exec emacsclient -e '(emms-pause)'")
+;; (defvar *mpc-bindings*
+;;   (let ((m (make-sparse-keymap)))
+;;     (define-key m (kbd "f") "exec mpc next")
+;;     (define-key m (kbd "b") "exec mpc prev")
+;;     m ; NOTE: this is important
+;;     ))
+;; (define-key *root-map* (kbd "m") '*mpc-bindings*)
 
 ;(load "/home/atom/stumpwm/contrib/notifications.lisp")
 ;(define-key *root-map* (kbd "n") '*notifications-map*)
@@ -98,7 +95,7 @@
 
 (defcommand emux () ()
   "Start emux or switch to it, if it is already running."
-  (run-or-raise "emacs -q -l ~/.emacs.d/emux-init.el --debug-init" '(:title "emux")))
+  (run-or-raise "emacsclient -e '(start-emux)'" '(:title "emux")))
 (define-key *root-map* (kbd "s") "emux")
 
 (defcommand xbmc () ()
