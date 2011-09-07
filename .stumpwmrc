@@ -90,7 +90,7 @@
 
 (defcommand emacs () ()
   "Start emacs or switch to it, if it is already running."
-  (run-or-raise "emacs" '(:title "emacs")))
+  (run-or-raise "emacsclient -c" '(:title "emacs")))
 (define-key *root-map* (kbd "e") "emacs")
 
 (defcommand emux () ()
@@ -103,9 +103,10 @@
   (run-or-raise "xbmc.bin" '(:class "xbmc.bin")))
 (define-key *root-map* (kbd "d") "xbmc")
 
-(firefox)
+(run-commands "exec emacs --daemon")
 (emacs)
 (emux)
+(firefox)
 
 ;; make my default groups
 (run-commands "gnew trash")
