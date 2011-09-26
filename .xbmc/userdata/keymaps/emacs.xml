@@ -1,6 +1,8 @@
 <keymap>
   <global>
     <keyboard>
+      <m mod="ctrl,shift">ActivateWindow(music)</m>
+      <v mod="ctrl,shift">ActivateWindow(video)</v>
       <b mod="ctrl">Left</b>
       <f mod="ctrl">Right</f>
       <p mod="ctrl">Up</p>
