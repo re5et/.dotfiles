@@ -39,6 +39,7 @@ alias gp='ps aux | grep'
 alias gk='grepkill'
 
 alias be='bundle exec'
+alias rake='be rake'
 alias rc='be rails c'
 alias rdbc='be rails dbconsole'
 alias rs='be rails s'
