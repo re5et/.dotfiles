@@ -49,7 +49,7 @@
 
 ;; top level commands
 (define-key *top-map* (kbd "C-S-RET") "fullscreen")
-(define-key *top-map* (kbd "C-M-RET") "exec gnome-screensaver-command -l")
+(define-key *top-map* (kbd "C-M-RET") "exec xscreensaver-command -lock")
 (define-key *top-map* (kbd "C-:") "pull-hidden-next")
 (define-key *top-map* (kbd "C-\"") "pull-hidden-previous")
 (define-key *top-map* (kbd "C-;") "next")
