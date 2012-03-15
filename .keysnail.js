@@ -63,6 +63,14 @@ key.setGlobalKey(['C-c', 'C-,'], function (ev, arg) {
   ext.exec("hok-start-extended-mode", arg, ev);
 }, 'HOK extended awesome!', true);
 
+key.setGlobalKey(['C-c', 'c'], function (ev, arg) {
+  ext.exec("firebug-console-focus", arg, ev);
+}, 'firebug console focus', true);
+
+key.setGlobalKey(['C-c', 't'], function (ev, arg) {
+  ext.exec("firebug-tab", arg, ev);
+}, 'firebug select tab', true);
+
 key.setGlobalKey(["C-j", "C-t"],
                  function (ev, arg) {
                    ext.exec("twitter-client-display-timeline", arg);
