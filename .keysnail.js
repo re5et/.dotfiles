@@ -46,6 +46,8 @@ plugins.options["hok.hint_color_form"]    = 'rgba(157, 82, 255, 1)';
 plugins.options["hok.hint_color_focused"] = 'rgba(255, 0, 255, 1)';
 plugins.options["hok.hint_color_candidates"] = 'rgba(255, 100, 255, 1)';
 
+plugins.options['hok.selector'] = 'a, input:not([type="hidden"]), textarea, iframe, area, select, button, embed, *[onclick], *[onmouseover], *[onmousedown], *[onmouseup], *[oncommand], *[role="link"], *[role="button"]'
+
 key.setGlobalKey('C-j', function(){
   return false;
 }, 'stop C-j from entering search so it can be used for prefixing.');
