@@ -1,2 +1,5 @@
-#!/bin/bash
-xmodmap -e "keycode 134 = 0xFF67"
+remove Lock = Caps_Lock
+remove Control = Control_L
+keysym Caps_Lock = Control_L
+add Lock = Caps_Lock
+add Control = Control_L
