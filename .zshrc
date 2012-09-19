@@ -53,6 +53,8 @@ alias cokwip='cok && cwip'
 unsetopt auto_name_dirs
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
 
+[[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh"  # This loads NVM into a shell session.
+
 umask 022
 
 export RUBY_HEAP_MIN_SLOTS=1000000
