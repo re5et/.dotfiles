@@ -1,9 +1,6 @@
 [submodule "oh-my-zsh"]
   path = oh-my-zsh
   url = https://github.com/robbyrussell/oh-my-zsh.git
-[submodule "rinari"]
-  path = .emacs.d/mine/rinari
-  url = https://github.com/eschulte/rinari.git
 [submodule "slime"]
   path = .emacs.d/mine/slime
   url = https://github.com/technomancy/slime.git
