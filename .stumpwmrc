@@ -85,7 +85,7 @@
 
 (defcommand firefox () ()
   "Start Firefox or switch to it, if it is already running."
-  (run-or-raise "killall firefox; firefox" '(:role "browser")))
+  (run-or-raise "killall firefox; firefox" '(:class "Firefox")))
 (define-key *root-map* (kbd "f") "firefox")
 
 (defcommand chromium () ()
