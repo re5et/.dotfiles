@@ -90,12 +90,14 @@
 
 (defcommand chromium () ()
   "Start Chromium or switch to it, if it is already running."
-  (run-or-raise "chromium-browser" '(:class "Chromium-browser")))
+  (run-or-raise "killall chromium-browser; chromium-browser" '(:class "Chromium-browser")))
 (define-key *root-map* (kbd "c") "chromium")
 
 (defcommand emacs () ()
   "Start emacs or switch to it, if it is already running."
-  (run-or-raise "emacsclient -c" '(:title "emacs")))
+  (run-or-raise
+   "ps aux | fgrep 'emacs --daemon' | grep -v grep; [[ $? == 0 ]] || emacs --daemon; emacsclient -c"
+   '(:title "emacs")))
 (define-key *root-map* (kbd "e") "emacs")
 
 (defcommand emux () ()
@@ -108,7 +110,9 @@
   (run-or-raise "xbmc.bin" '(:class "xbmc.bin")))
 (define-key *root-map* (kbd "d") "xbmc")
 
-(run-commands "exec emacs --daemon")
+(run-shell-command "xmodmap ~/.xmodmap")
+(run-shell-command "gnome-settings-daemon")
+(run-shell-command "killall gnome-screensaver; xscreensaver")
 (emacs)
 (emux)
 (firefox)
