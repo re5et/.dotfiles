@@ -1,5 +1,0 @@
-(emux-session-set-default-directory "/other/downloads")
-(emux-screen-create '(:name "downloads") "download-dir" "lm")
-(emux-terminal-hsplit "sb" "ssh sb")
-(emux-terminal-command "ll d/ --sort time -r")
-(emux-terminal-vsplit "rsync" "download_sync")
