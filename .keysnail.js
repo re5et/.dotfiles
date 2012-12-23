@@ -69,6 +69,10 @@ key.setGlobalKey(['C-c', 'c'], function (ev, arg) {
   ext.exec("firebug-console-focus", arg, ev);
 }, 'firebug console focus', true);
 
+key.setGlobalKey(['C-c', 'i'], function (ev, arg) {
+  ext.exec("firebug-inspect", arg, ev);
+}, 'firebug inspect', true);
+
 key.setGlobalKey(['C-c', 't'], function (ev, arg) {
   ext.exec("firebug-tab", arg, ev);
 }, 'firebug select tab', true);
