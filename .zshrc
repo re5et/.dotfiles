@@ -22,8 +22,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
-source /usr/share/autojump/autojump.zsh
-
 EDITOR="emacsclient -c"
 BROWSER=/usr/bin/firefox
 PATH=$PATH:~/bin
