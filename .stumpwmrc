@@ -6,20 +6,6 @@
 
 (stumpwm:set-prefix-key (stumpwm:kbd "C-h"))
 
-;; ;; turn on the modeline
-;; (if (not (head-mode-line (current-head)))
-;;     (toggle-mode-line (current-screen) (current-head)))
-;; ;; A head is a physical monitor. A screen is a section of video memory
-;; ;; that heads are mapped on to. When using xinerama you generally have
-;; ;; 1 screen and many heads. When not using xinerama each screen is a
-;; ;; physical monitor so you have many screens with only one head on them.
-
-;; ;; (load "/home/atom/stumpwm/contrib/mem.lisp")
-;; ;; (load "/home/atom/stumpwm/contrib/net.lisp")
-;; ;; (load "/home/atom/stumpwm/contrib/battery.lisp")
-;; ;; (load "/home/atom/stumpwm/contrib/disk.lisp")
-;; ;; (load "/home/atom/stumpwm/contrib/cpu.lisp")
-
 (setf
  *mouse-focus-policy* :ignore
  *message-window-gravity* :top-left
@@ -67,17 +53,6 @@
 
 ;; mpc stuff
 (define-key *root-map* (kbd "C-p") "exec emacsclient -e '(emms-pause)'")
-;; (defvar *mpc-bindings*
-;;   (let ((m (make-sparse-keymap)))
-;;     (define-key m (kbd "f") "exec mpc next")
-;;     (define-key m (kbd "b") "exec mpc prev")
-;;     m ; NOTE: this is important
-;;     ))
-;; (define-key *root-map* (kbd "m") '*mpc-bindings*)
-
-;(load "/home/atom/stumpwm/contrib/notifications.lisp")
-;(define-key *root-map* (kbd "n") '*notifications-map*)
-
 
 ;; get around groups easier
 (define-key *top-map* (kbd "C-1") "gselect Default")
