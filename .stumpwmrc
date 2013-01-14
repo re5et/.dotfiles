@@ -56,7 +56,7 @@
 
 ;; get around groups easier
 (define-key *top-map* (kbd "C-1") "gselect Default")
-(define-key *top-map* (kbd "C-2") "gselect trash")
+(define-key *top-map* (kbd "C-2") "gselect background")
 
 (defcommand firefox () ()
   "Start Firefox or switch to it, if it is already running."
@@ -85,12 +85,15 @@
   (run-or-raise "xbmc.bin" '(:class "xbmc.bin")))
 (define-key *root-map* (kbd "d") "xbmc")
 
+;; make my default groups
+(run-commands
+ "gnew background"
+ "gselect Default")
+
 (run-shell-command "xmodmap ~/.xmodmap")
 (run-shell-command "gnome-settings-daemon")
 (run-shell-command "killall gnome-screensaver; xscreensaver")
+(run-shell-command "synergys -c ~/.synergy.conf")
+(firefox)
 (emacs)
 (emux)
-(firefox)
-
-;; make my default groups
-(run-commands "gnew trash")
