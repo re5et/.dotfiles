@@ -40,7 +40,7 @@ alias be='bundle exec'
 alias rake='be rake'
 alias rc='be rails c'
 alias rdbc='be rails dbconsole'
-alias rs='be rails s'
+alias rs='(kill -9 `cat tmp/pids/server.pid` 2>& /dev/null  || echo "no server running") && be rails s -d'
 alias rg='be rails g'
 
 alias cwip='RAILS_ENV=test rake cucumber:wip'
