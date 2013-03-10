@@ -32,6 +32,7 @@
 (define-key *root-map* (kbd "C-F") "next-in-frame")
 
 (define-key *root-map* (kbd "t") "exec sakura")
+(define-key *root-map* (kbd "B") "banish-window")
 (define-key *root-map* (kbd "S-Left") "move-window left")
 (define-key *root-map* (kbd "S-Right") "move-window right")
 (define-key *root-map* (kbd "S-Up") "move-window up")
@@ -84,6 +85,9 @@
   "Start xbmc or switch to it, if it is already running."
   (run-or-raise "xbmc.bin" '(:class "xbmc.bin")))
 (define-key *root-map* (kbd "d") "xbmc")
+
+(defcommand banish-window () ()
+  (run-commands "gmove background"))
 
 ;; make my default groups
 (run-commands
