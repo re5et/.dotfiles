@@ -32,6 +32,7 @@
 (define-key *root-map* (kbd "C-F") "next-in-frame")
 
 (define-key *root-map* (kbd "t") "exec sakura")
+(define-key *root-map* (kbd "i") "status")
 (define-key *root-map* (kbd "B") "banish-window")
 (define-key *root-map* (kbd "S-Left") "move-window left")
 (define-key *root-map* (kbd "S-Right") "move-window right")
@@ -60,34 +61,37 @@
 (define-key *top-map* (kbd "C-2") "gselect background")
 
 (defcommand firefox () ()
-  "Start Firefox or switch to it, if it is already running."
-  (run-or-raise "killall firefox; firefox" '(:class "Firefox")))
+            "Start Firefox or switch to it, if it is already running."
+            (run-or-raise "killall firefox; firefox" '(:class "Firefox")))
 (define-key *root-map* (kbd "f") "firefox")
 
 (defcommand chromium () ()
-  "Start Chromium or switch to it, if it is already running."
-  (run-or-raise "killall chromium-browser; chromium-browser" '(:class "Chromium-browser")))
+            "Start Chromium or switch to it, if it is already running."
+            (run-or-raise "killall chromium-browser; chromium-browser" '(:class "Chromium-browser")))
 (define-key *root-map* (kbd "c") "chromium")
 
 (defcommand emacs () ()
-  "Start emacs or switch to it, if it is already running."
-  (run-or-raise
-   "ps aux | fgrep 'emacs --daemon' | grep -v grep; [[ $? == 0 ]] || emacs --daemon; emacsclient -c"
-   '(:title "emacs")))
+            "Start emacs or switch to it, if it is already running."
+            (run-or-raise
+             "ps aux | fgrep 'emacs --daemon' | grep -v grep; [[ $? == 0 ]] || emacs --daemon; emacsclient -c"
+             '(:title "emacs")))
 (define-key *root-map* (kbd "e") "emacs")
 
 (defcommand emux () ()
-  "Start emux or switch to it, if it is already running."
-  (run-or-raise "emacsclient -e '(start-emux)'" '(:title "emux")))
+            "Start emux or switch to it, if it is already running."
+            (run-or-raise "emacsclient -e '(start-emux)'" '(:title "emux")))
 (define-key *root-map* (kbd "s") "emux")
 
 (defcommand xbmc () ()
-  "Start xbmc or switch to it, if it is already running."
-  (run-or-raise "xbmc.bin" '(:class "xbmc.bin")))
+            "Start xbmc or switch to it, if it is already running."
+            (run-or-raise "xbmc.bin" '(:class "xbmc.bin")))
 (define-key *root-map* (kbd "d") "xbmc")
 
 (defcommand banish-window () ()
-  (run-commands "gmove background"))
+            (run-commands "gmove background"))
+
+(defcommand status () ()
+            (message (run-shell-command "system-status" t)))
 
 ;; make my default groups
 (run-commands
@@ -95,7 +99,7 @@
  "gselect Default")
 
 (run-shell-command "xmodmap ~/.xmodmap")
-(run-shell-command "gnome-settings-daemon")
+(run-shell-command "unity-settings-daemon")
 (run-shell-command "killall gnome-screensaver; xscreensaver")
 (run-shell-command "synergys -c ~/.synergy.conf")
 (firefox)
