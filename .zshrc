@@ -34,7 +34,7 @@ alias lm='l --sort time -r'
 alias lc='l | wc -l'
 alias cp='/usr/bin/gcp -r'
 
-alias gp='ps aux | grep'
+alias gp='ps aux | head -n 1; ps aux | grep -v grep | grep'
 alias gk='grepkill'
 
 alias be='bundle exec'
