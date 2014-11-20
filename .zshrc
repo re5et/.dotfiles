@@ -32,6 +32,7 @@ alias l.='l ./*(.)'
 alias l/='l -d ./*(/)'
 alias lm='l --sort time -r'
 alias lc='l | wc -l'
+alias cp='/usr/bin/gcp -r'
 
 alias gp='ps aux | grep'
 alias gk='grepkill'
