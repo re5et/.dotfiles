@@ -102,6 +102,7 @@
 (run-shell-command "unity-settings-daemon")
 (run-shell-command "killall gnome-screensaver; xscreensaver")
 (run-shell-command "synergys -c ~/.synergy.conf")
+(run-shell-command "socks-proxy")
 (firefox)
 (emacs)
 (emux)
