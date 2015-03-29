@@ -9,7 +9,7 @@ export ZSH_THEME="re5et"
 # export CASE_SENSITIVE="true"
 
 # Comment this out to disable weekly auto-update checks
-export DISABLE_AUTO_UPDATE="true"
+# export DISABLE_AUTO_UPDATE="true"
 
 # Uncomment following line if you want to disable colors in ls
 # export DISABLE_LS_COLORS="true"
@@ -61,3 +61,7 @@ export RUBY_HEAP_SLOTS_INCREMENT=1000000
 export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
 export RUBY_GC_MALLOC_LIMIT=1000000000
 export RUBY_HEAP_FREE_MIN=500000
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+export VAGRANT_USE_SSHFS=1
