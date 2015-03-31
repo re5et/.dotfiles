@@ -21,6 +21,7 @@ plugins=(git ssh-agent)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+umask 022
 
 EDITOR="emacsclient -c"
 BROWSER=/usr/bin/firefox
@@ -48,20 +49,13 @@ alias cwip='RAILS_ENV=test rake cucumber:wip'
 alias cok='RAILS_ENV=test rake cucumber:ok'
 alias cokwip='cok && cwip'
 
-# for rvm
 unsetopt auto_name_dirs
+
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
-
 [[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh"  # This loads NVM into a shell session.
-
-umask 022
-
-export RUBY_HEAP_MIN_SLOTS=1000000
-export RUBY_HEAP_SLOTS_INCREMENT=1000000
-export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
-export RUBY_GC_MALLOC_LIMIT=1000000000
-export RUBY_HEAP_FREE_MIN=500000
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
+export MANSION_GLOBAL_LOCAL_MOUNT_PATH=/var/atom/.mansion
+export CID_LOCAL_MOUNT_PATH=/var/atom/.cid
 export VAGRANT_USE_SSHFS=1
