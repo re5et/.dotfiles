@@ -38,16 +38,6 @@ alias cp='/usr/bin/gcp -r'
 alias gp='ps aux | head -n 1; ps aux | grep -v grep | grep'
 alias gk='grepkill'
 
-alias be='bundle exec'
-alias rake='be rake'
-alias rc='be rails c'
-alias rdbc='be rails dbconsole'
-alias rs='(kill -9 `cat tmp/pids/server.pid` 2>& /dev/null  || echo "no server running") && be rails s -d'
-alias rg='be rails g'
-
-alias cwip='RAILS_ENV=test rake cucumber:wip'
-alias cok='RAILS_ENV=test rake cucumber:ok'
-alias cokwip='cok && cwip'
 
 unsetopt auto_name_dirs
 
@@ -56,6 +46,4 @@ unsetopt auto_name_dirs
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-export MANSION_GLOBAL_LOCAL_MOUNT_PATH=/var/atom/.mansion
-export CID_LOCAL_MOUNT_PATH=/var/atom/.cid
 export VAGRANT_USE_SSHFS=1
