@@ -86,6 +86,11 @@
             (run-or-raise "xbmc.bin" '(:class "xbmc.bin")))
 (define-key *root-map* (kbd "d") "xbmc")
 
+(defcommand spotify () ()
+            "Start xbmc or switch to it, if it is already running."
+            (run-or-raise "spotify" '(:class "spotify")))
+(define-key *root-map* (kbd "m") "spotify")
+
 (defcommand sakura () ()
             "Start sakura or switch to it, if it is already running."
             (run-or-raise "sakura" '(:class "Sakura")))
