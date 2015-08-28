@@ -49,8 +49,12 @@
 (define-key *top-map* (kbd "C-M-;") "colon")
 
 ;; volume control
-(define-key *top-map* (kbd "C-Up") "exec amixer -c 0 set Master 4dB+")
-(define-key *top-map* (kbd "C-Down") "exec amixer -c 0 set Master 4dB-")
+(defcommand volume-up () ()
+            (message (run-shell-command "amixer -c 0 set Master 4dB+" t)))
+(defcommand volume-down () ()
+            (message (run-shell-command "amixer -c 0 set Master 4dB-" t)))
+(define-key *top-map* (kbd "C-Up") "volume-up")
+(define-key *top-map* (kbd "C-Down") "volume-down")
 
 ;; mpc stuff
 (define-key *root-map* (kbd "C-p") "exec emacsclient -e '(emms-pause)'")
@@ -84,7 +88,7 @@
 (defcommand xbmc () ()
             "Start xbmc or switch to it, if it is already running."
             (run-or-raise "xbmc.bin" '(:class "xbmc.bin")))
-(define-key *root-map* (kbd "d") "xbmc")
+(define-key *root-map* (kbd "x") "xbmc")
 
 (defcommand spotify () ()
             "Start xbmc or switch to it, if it is already running."
