@@ -16,7 +16,7 @@ export ZSH_THEME="re5et"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git ssh-agent)
+plugins=(ssh-agent)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -33,17 +33,27 @@ alias l.='l ./*(.)'
 alias l/='l -d ./*(/)'
 alias lm='l --sort time -r'
 alias lc='l | wc -l'
-alias cp='/usr/bin/gcp -r'
 
 alias gp='ps aux | head -n 1; ps aux | grep -v grep | grep'
 alias gk='grepkill'
 
+alias docker='sudo docker'
+alias docker-stop-all='docker stop $(docker ps -a -q)'
+alias docker-rm-all='docker rm $(docker ps -a -q)'
+alias docker-rmi-all='docker rmi $(docker images -a -q)'
+alias docker-purge='docker-stop-all &> /dev/null; docker-rm-all &> /dev/null; docker-rmi-all &> /dev/null'
+
+alias rsync='rsync -rvz --rsh="ssh" --human-readable --progress'
 
 unsetopt auto_name_dirs
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
-[[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh"  # This loads NVM into a shell session.
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+eval "$(direnv hook zsh)"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.nvm/bin" # Add NVM to PATH for scripting
 
 export VAGRANT_USE_SSHFS=1

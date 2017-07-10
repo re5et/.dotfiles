@@ -130,23 +130,23 @@ hook.setHook('KeyBoardQuit', function (ev) {
 });
 
 // manage closed tabs
-ext.add("list-closed-tabs", function () {
-  const fav = "chrome://mozapps/skin/places/defaultFavicon.png";
-  var ss = Cc["@mozilla.org/browser/sessionstore;1"].getService(Ci.nsISessionStore);
-  var json = Cc["@mozilla.org/dom/json;1"].createInstance(Ci.nsIJSON);
-  var closedTabs = [[tab.image || fav, tab.title] for each (tab in json.decode(ss.getClosedTabData(window)))];
+// ext.add("list-closed-tabs", function () {
+//   const fav = "chrome://mozapps/skin/places/defaultFavicon.png";
+//   var ss = Cc["@mozilla.org/browser/sessionstore;1"].getService(Ci.nsISessionStore);
+//   var json = Cc["@mozilla.org/dom/json;1"].createInstance(Ci.nsIJSON);
+//   var closedTabs = [[tab.image || fav, tab.title] for each (tab in json.decode(ss.getClosedTabData(window)))];
 
-  if (!closedTabs.length)
-    return void display.echoStatusBar("there are no closed tabs.", 2000);
+//   if (!closedTabs.length)
+//     return void display.echoStatusBar("there are no closed tabs.", 2000);
 
-  prompt.selector(
-    {
-      message : "select tab to undo:",
-      collection : closedTabs,
-      flags : [ICON | IGNORE, 0],
-      callback : function (i) { if (i >= 0) window.undoCloseTab(i); }
-    });
-}, "List closed tabs");
+//   prompt.selector(
+//     {
+//       message : "select tab to undo:",
+//       collection : closedTabs,
+//       flags : [ICON | IGNORE, 0],
+//       callback : function (i) { if (i >= 0) window.undoCloseTab(i); }
+//     });
+// }, "List closed tabs");
 
 // increment / decrement url number
 key.setViewKey('>', function (ev, arg) {
@@ -543,8 +543,11 @@ key.setEditKey('C-M-y', function (ev) {
   if (!command.kill.ring.length) {
     return;
   }
-  let (ct = command.getClipboardText()) (!command.kill.ring.length || ct != command.kill.ring[0]) &&
+
+  let ct = command.getClipboardText()
+  if(!command.kill.ring.length || ct != command.kill.ring[0]) {
     command.pushKillRing(ct);
+  }
   prompt.selector({message: "Paste:", collection: command.kill.ring, callback: function (i) {if (i >= 0) {key.insertText(command.kill.ring[i]);}}});
 }, 'Show kill-ring and select text to paste', true);
 

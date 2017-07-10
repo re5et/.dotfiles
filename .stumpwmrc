@@ -53,8 +53,11 @@
             (message (run-shell-command "amixer -c 0 set Master 4dB+" t)))
 (defcommand volume-down () ()
             (message (run-shell-command "amixer -c 0 set Master 4dB-" t)))
+(defcommand toggle-microphone-mute () ()
+            (message (run-shell-command "amixer set Capture toggle" t)))
 (define-key *top-map* (kbd "C-Up") "volume-up")
 (define-key *top-map* (kbd "C-Down") "volume-down")
+(define-key *root-map* (kbd "m") "toggle-microphone-mute")
 
 ;; mpc stuff
 (define-key *root-map* (kbd "C-p") "exec emacsclient -e '(emms-pause)'")
@@ -70,13 +73,13 @@
 
 (defcommand chromium () ()
             "Start Chromium or switch to it, if it is already running."
-            (run-or-raise "killall chromium-browser; chromium-browser" '(:class "Chromium-browser")))
+            (run-or-raise "chromium-browser" '(:title "chromium-browser")))
 (define-key *root-map* (kbd "c") "chromium")
 
 (defcommand emacs () ()
             "Start emacs or switch to it, if it is already running."
             (run-or-raise
-             "ps aux | fgrep 'emacs --daemon' | grep -v grep; [[ $? == 0 ]] || emacs --daemon; emacsclient -c"
+             "ps aux | grep 'emacs --daemon' | grep -v grep; [[ $? == 0 ]] || emacs --daemon; emacsclient -c"
              '(:title "emacs-primary")))
 (define-key *root-map* (kbd "e") "emacs")
 
@@ -93,7 +96,7 @@
 (defcommand spotify () ()
             "Start xbmc or switch to it, if it is already running."
             (run-or-raise "spotify" '(:class "spotify")))
-(define-key *root-map* (kbd "m") "spotify")
+(define-key *root-map* (kbd "M") "spotify")
 
 (defcommand sakura () ()
             "Start sakura or switch to it, if it is already running."
@@ -106,16 +109,18 @@
 (defcommand status () ()
             (message (run-shell-command "system-status" t)))
 
+(defcommand kodi-pause-play () ()
+            (message (run-shell-command "kodi-pause-play" t)))
+(define-key *root-map* (kbd "p") "kodi-pause-play")
+
 ;; make my default groups
 (run-commands
  "gnew background"
  "gselect Default")
 
-(run-shell-command "xmodmap ~/.xmodmap")
 (run-shell-command "unity-settings-daemon")
 (run-shell-command "killall gnome-screensaver; xscreensaver")
 (run-shell-command "synergys -c ~/.synergy.conf")
-(run-shell-command "socks-proxy")
 (firefox)
 (emacs)
 (emux)
