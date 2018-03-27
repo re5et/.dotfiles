@@ -22,3 +22,4 @@
 /.emacs.d/elpa/archives/melpa/archive-contents
 *_flymake.js
 .floo*
+.envrc.secret*

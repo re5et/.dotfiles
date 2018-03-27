@@ -73,7 +73,7 @@
 
 (defcommand chromium () ()
             "Start Chromium or switch to it, if it is already running."
-            (run-or-raise "chromium-browser" '(:title "chromium-browser")))
+            (run-or-raise "google-chrome" '(:class "Google-chrome")))
 (define-key *root-map* (kbd "c") "chromium")
 
 (defcommand emacs () ()
@@ -90,7 +90,7 @@
 
 (defcommand xbmc () ()
             "Start xbmc or switch to it, if it is already running."
-            (run-or-raise "xbmc.bin" '(:class "xbmc.bin")))
+            (run-or-raise "kodi" '(:class "Kodi")))
 (define-key *root-map* (kbd "x") "xbmc")
 
 (defcommand spotify () ()
@@ -124,3 +124,5 @@
 (firefox)
 (emacs)
 (emux)
+
+(load-module "stumptray")

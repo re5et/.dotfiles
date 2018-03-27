@@ -12,3 +12,5 @@
   ui=auto
 [github]
   user=re5et
+[status]
+  showUntrackedFiles = all
