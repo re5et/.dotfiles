@@ -73,7 +73,7 @@
 
 (defcommand chromium () ()
             "Start Chromium or switch to it, if it is already running."
-            (run-or-raise "google-chrome" '(:class "Google-chrome")))
+            (run-or-raise "google-chrome-stable" '(:class "Google-chrome")))
 (define-key *root-map* (kbd "c") "chromium")
 
 (defcommand emacs () ()
@@ -95,7 +95,7 @@
 
 (defcommand spotify () ()
             "Start xbmc or switch to it, if it is already running."
-            (run-or-raise "spotify" '(:class "spotify")))
+            (run-or-raise "spotify" '(:class "Spotify")))
 (define-key *root-map* (kbd "M") "spotify")
 
 (defcommand sakura () ()
@@ -113,6 +113,10 @@
             (message (run-shell-command "kodi-pause-play" t)))
 (define-key *root-map* (kbd "p") "kodi-pause-play")
 
+(defcommand torrents-to-sb () ()
+            (message (run-shell-command "torrents-to-sb &" t)))
+(define-key *root-map* (kbd "T") "torrents-to-sb")
+
 ;; make my default groups
 (run-commands
  "gnew background"
@@ -120,7 +124,6 @@
 
 (run-shell-command "unity-settings-daemon")
 (run-shell-command "killall gnome-screensaver; xscreensaver")
-(run-shell-command "synergys -c ~/.synergy.conf")
 (firefox)
 (emacs)
 (emux)

@@ -23,3 +23,7 @@
 *_flymake.js
 .floo*
 .envrc.secret*
+.tool-versions
+TAGS
+.taggable
+generate-tags
