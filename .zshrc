@@ -45,8 +45,6 @@ alias docker-rmi-all='docker rmi $(docker images -a -q)'
 alias docker-purge='docker-stop-all &> /dev/null; docker-rm-all &> /dev/null; docker-rmi-all &> /dev/null'
 
 alias rsync='rsync -rvz --rsh="ssh" --human-readable --progress'
-alias kubectl="microk8s.kubectl --kubeconfig=$HOME/.kube/config"
-alias k="kubectl"
 
 unsetopt auto_name_dirs
 
@@ -85,10 +83,4 @@ export RAILS_SYSTEM_TESTING_SCREENSHOT=simple
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [[ -f /home/atom/code/hello-epics/node_modules/tabtab/.completions/slss.zsh ]] && . /home/atom/code/hello-epics/node_modules/tabtab/.completions/slss.zsh
 
-export GOPATH=$HOME/code
-export GOBIN=/usr/local/go/gobin
-export GOROOT=/usr/local/go
-
-PATH=$PATH:/usr/local/go/bin:/usr/local/go/gobin
-
-source <(k completion zsh)
+# source <(k completion zsh)
