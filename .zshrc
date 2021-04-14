@@ -1,3 +1,4 @@
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 # Path to your oh-my-zsh configuration.
 export ZSH=$HOME/.dotfiles/oh-my-zsh
 
@@ -61,11 +62,6 @@ export PATH="$PATH:$HOME/.nvm/bin" # Add NVM to PATH for scripting
 export VAGRANT_USE_SSHFS=1
 
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-if [ "$TERM" = "dumb" ]; then
-  export ZSH_THEME
-  export PS1='> '
-fi
 
 . /home/atom/.asdf/asdf.sh
 . /home/atom/.asdf/completions/asdf.bash
