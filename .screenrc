@@ -1,7 +1,1 @@
-hardstatus alwayslastline
-hardstatus string "%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d/%m %{W}%c %{g}]"
-defscrollback 50000
-escape ^Jj
-startup_message off
-sorendition 00 03 # default!
-termcapinfo xterm* ti@:te@
+escape "^O^O"
