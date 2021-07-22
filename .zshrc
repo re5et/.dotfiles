@@ -80,3 +80,4 @@ export RAILS_SYSTEM_TESTING_SCREENSHOT=simple
 [[ -f /home/atom/code/hello-epics/node_modules/tabtab/.completions/slss.zsh ]] && . /home/atom/code/hello-epics/node_modules/tabtab/.completions/slss.zsh
 
 # source <(k completion zsh)
+export GPG_TTY=$(tty)
