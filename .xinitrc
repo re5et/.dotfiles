@@ -40,6 +40,9 @@ xset r rate 200 50
 
 xmodmap ~/.xmodmap
 
+export GTK_SCALE=2
+export GDK_DPI_SCALE=2
+export MOZ_USE_XINPUT2=1
 # Finally start Emacs
 exec emacs
 ### END EXWM
