@@ -1,0 +1,158 @@
+<keymap>
+  <global>
+    <keyboard>
+      <m mod="ctrl,shift">ActivateWindow(music)</m>
+      <v mod="ctrl,shift">ActivateWindow(video)</v>
+      <b mod="ctrl">Left</b>
+      <f mod="ctrl">Right</f>
+      <p mod="ctrl">Up</p>
+      <n mod="ctrl">Down</n>
+      <comma>FirstPage</comma>
+      <period>LastPage</period>
+      <v mod="alt">PageUp</v>
+      <v mod="ctrl">PageDown</v>
+      <g mod="ctrl">PreviousMenu</g>
+    </keyboard>
+  </global>
+  <FullscreenVideo>
+    <keyboard>
+      <f mod="alt">BigStepForward</f>
+      <b mod="alt">BigStepBack</b>
+      <f mod="ctrl">StepForward</f>
+      <b mod="ctrl">StepBack</b>
+      <f mod="ctrl,alt">ChapterOrBigStepForward</f>
+      <b mod="ctrl,alt">ChapterOrBigStepBack</b>
+      <f mod="ctrl,shift">SkipNext</f>
+      <b mod="ctrl,shift">SkipPrevious</b>
+      <n mod="ctrl">BigStepBack</n>
+      <p mod="ctrl">BigStepForward</p>
+      <x mod="alt">OSD</x>
+      <g mod="ctrl">Fullscreen</g>
+    </keyboard>
+  </FullscreenVideo>
+  <FullscreenInfo>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </FullscreenInfo>
+  <PlayerControls>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </PlayerControls>
+  <Visualisation>
+    <keyboard>
+      <g mod="ctrl">FullScreen</g>
+    </keyboard>
+  </Visualisation>
+  <MusicOSD>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </MusicOSD>
+  <VisualisationSettings>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </VisualisationSettings>
+  <VisualisationPresetList>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </VisualisationPresetList>
+  <SelectDialog>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </SelectDialog>
+  <VideoOSD>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </VideoOSD>
+  <VideoMenu>
+    <keyboard>
+      <g mod="ctrl">Fullscreen</g>
+    </keyboard>
+  </VideoMenu>
+  <OSDVideoSettings>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </OSDVideoSettings>
+  <OSDAudioSettings>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </OSDAudioSettings>
+  <VideoBookmarks>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </VideoBookmarks>
+  <ContextMenu>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </ContextMenu>
+  <FileStackingDialog>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </FileStackingDialog>
+  <shutdownmenu>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </shutdownmenu>
+  <MusicInformation>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </MusicInformation>
+  <MovieInformation>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </MovieInformation>
+  <AddonInformation>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </AddonInformation>
+  <AddonSettings>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </AddonSettings>
+  <TextViewer>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </TextViewer>
+  <LockSettings>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </LockSettings>
+  <ProfileSettings>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </ProfileSettings>
+  <PictureInfo>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </PictureInfo>
+  <Teletext>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </Teletext>
+  <Favourites>
+    <keyboard>
+      <g mod="ctrl">Close</g>
+    </keyboard>
+  </Favourites>
+</keymap>
